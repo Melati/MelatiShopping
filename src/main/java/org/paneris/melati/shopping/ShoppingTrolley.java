@@ -98,8 +98,8 @@ public abstract class ShoppingTrolley {
   **/
   public void initialise(Melati melati, MelatiShoppingConfig config, Integer id) 
    throws InstantiationPropertyException {
-    load(id);
     initialise(melati,config);
+    load(id);
     HttpSession session = melati.getSession();
     session.putValue(name(),this);
   }
