@@ -34,6 +34,19 @@ public class DefaultShoppingTrolley extends ShoppingTrolley {
   */
   public void save() {
   }
+  
+  /* set the user's detault details into this trolley.  this is useful
+   * if users have already logged in, and we don't want them to reenter their 
+   * details
+   */
+  public void setDefaultDetails(Melati melati) {
+  }
+  
+  /* do something to force users to login
+   * you should throw an access poem exception in order to generate the login page
+   */
+  public void assertLogin(Melati melati) throws AccessPoemException {
+  }
 
   /* provide a mechanism for working out if 
      this order should include a delivery charge
