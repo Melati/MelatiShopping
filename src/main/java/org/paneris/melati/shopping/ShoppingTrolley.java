@@ -125,6 +125,7 @@ public abstract class ShoppingTrolley {
       instance.initialise(melati,config);
       session.putValue(name(),instance);
     }
+    instance.configureRequest(melati);
     return instance;
   }
 
@@ -155,6 +156,13 @@ public abstract class ShoppingTrolley {
   /* save a trolley to something persistent
   */
   public abstract void save();
+
+  /* this is done for each request, so anything special that needs to be done 
+   * can be put in here
+  */
+  public void configureRequest(Melati melati) {
+    this.melati = melati;
+  }  
 
   /* do something to force users to login
    * you could perhaps throw an access poem exception in order to let the
