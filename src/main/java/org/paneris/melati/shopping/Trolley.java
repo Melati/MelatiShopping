@@ -37,7 +37,7 @@ import java.net.URLEncoder;
 
 public class Trolley extends TemplateServlet {
 
-  MelatiShoppingConfig config;
+  public MelatiShoppingConfig config;
    
   /**
    * Inititialise the Shopping Trolley Engine.  This will load a file called
@@ -455,15 +455,6 @@ public class Trolley extends TemplateServlet {
                                       Double price, String description)
    throws InstantiationPropertyException {
     return trolley.newItem(id, description, price);
-  }
-
-  /** 
-   * a ShoppingContext contains additional information from parsing the pathInfo
-   */
-  public class ShoppingContext extends MelatiContext {
-    // shopping trolley id
-    Integer stid;
-    double quantity;
   }
 
   /** 
