@@ -55,7 +55,7 @@ public abstract class ShoppingTrolley {
   public void initialise(Melati melati, MelatiShoppingConfig config, Integer id) {
     load(id);
     initialise(melati,config);
-    HttpSession session = melati.getWebContext().getSession();
+    HttpSession session = melati.getSession();
     session.putValue(TROLLEY,this);
     this.melati = melati;
   }
@@ -65,7 +65,7 @@ public abstract class ShoppingTrolley {
    */
   public static synchronized ShoppingTrolley getInstance(Melati melati, MelatiShoppingConfig config) 
    throws InstantiationPropertyException {
-    HttpSession session = melati.getWebContext().getSession();
+    HttpSession session = melati.getSession();
     ShoppingTrolley instance = (ShoppingTrolley) session.getValue(TROLLEY);
     if (instance == null) {
       instance = newTrolley(config);
@@ -379,7 +379,7 @@ public abstract class ShoppingTrolley {
   }
   
   public String getFormNulled(Melati melati, String field) {
-    String val = melati.getWebContext().getForm(field);
+    String val = melati.getTemplateContext().getForm(field);
     if (val == null) return null;
     return val.equals("")?null:val;
   }
