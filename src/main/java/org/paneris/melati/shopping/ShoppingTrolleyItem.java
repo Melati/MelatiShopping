@@ -131,7 +131,7 @@ public abstract class ShoppingTrolleyItem  {
 
   /* format a number in the locale currency
   */
-  private String displayCurrency(double value) {
+  public String displayCurrency(double value) {
     return new String(NumberFormat.getCurrencyInstance(trolley.getLocale())
                                   .format(value));
   } 
