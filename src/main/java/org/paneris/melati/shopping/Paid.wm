@@ -1,0 +1,21 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<HTML>
+<head>
+<title>Paid</title>
+</head>
+<body>
+#if (!$error) #begin
+  <p>Thank you for your purchase</p>
+#end #else #begin
+  #if ($error.equals("1")) #begin
+    <p>Sorry, the amount you have paid ($paid) does not match the amount we were expecting ($expect).</p>
+  #end #else #begin
+    <p>I am very sorry, but something has gone wrong with the ordering process. 
+	 Please make a note of this error message:</p>
+      <p>Error: $error</p>
+  #end
+#end
+</BODY>
+</HTML>
+
