@@ -12,7 +12,6 @@ import org.melati.servlet.InvalidUsageException;
 import java.util.Enumeration;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import java.net.URLEncoder;
 
 
 /** 
@@ -48,14 +47,13 @@ public class Trolley extends TemplateServlet {
    * @see org.paneris.melati.shopping.MelatiShoppingConfig
    **/
 
-  public void init(ServletConfig conf ) throws ServletException
-  {
-     super.init(conf );
-     try {
-       config = new MelatiShoppingConfig();
-     } catch (MelatiException e) {
-       throw new ServletException(e.toString());
-     }
+  public void init(ServletConfig conf ) throws ServletException {
+    super.init(conf );
+    try {
+      config = new MelatiShoppingConfig();
+    } catch (MelatiException e) {
+      throw new ServletException(e.toString());
+    }
   }
 
   /**
@@ -111,7 +109,7 @@ public class Trolley extends TemplateServlet {
    **/
 
   protected String Load(Melati melati, Integer id)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.newTrolley(config);
     trolley.initialise(melati,config,id);
     melati.getTemplateContext().put("trolley", trolley);
@@ -131,7 +129,7 @@ public class Trolley extends TemplateServlet {
    **/
 
   protected String Save(Melati melati)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     trolley.save();
     melati.getTemplateContext().put("trolley", trolley);
@@ -149,7 +147,7 @@ public class Trolley extends TemplateServlet {
    * @throws InstantiationPropertyException - if we cannot construct the trolley
    **/
   protected String View(Melati melati)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     melati.getTemplateContext().put("trolley", ShoppingTrolley.getInstance(melati,config));
     return shoppingTemplate(melati, "Trolley");
   }
@@ -171,7 +169,8 @@ public class Trolley extends TemplateServlet {
    *
    * @throws InstantiationPropertyException - if we cannot construct the trolley
    */
-  protected String Update(Melati melati) throws InstantiationPropertyException {
+  protected String Update(Melati melati) 
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     for (Enumeration c = trolley.getItems(); c.hasMoreElements();) {
       ShoppingTrolleyItem item = (ShoppingTrolleyItem)c.nextElement();
@@ -214,7 +213,7 @@ public class Trolley extends TemplateServlet {
    **/
 
   protected String MultipleAdd(Melati melati)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     for (Enumeration e = melati.getRequest().getParameterNames(); 
                      e.hasMoreElements();) {
@@ -274,7 +273,7 @@ public class Trolley extends TemplateServlet {
    **/
 
   protected String Add(Melati melati, Integer id, double quantity)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
      System.err.println("Adding");
     // the quantity is defaulted to 1, so if you don't set it you will get one
     if (quantity == 0) quantity = 1;
@@ -308,7 +307,7 @@ public class Trolley extends TemplateServlet {
    **/
 
   protected String Remove(Melati melati, Integer id)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     ShoppingTrolleyItem item = trolley.getItem(id);
     trolley.removeItem(item);
@@ -333,7 +332,7 @@ public class Trolley extends TemplateServlet {
    **/
 
   protected String Set(Melati melati, Integer id, double quantity)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     ShoppingTrolleyItem item = trolley.getItem(id);
     if (item == null) item = newItem(trolley,id, null, null);
@@ -353,7 +352,7 @@ public class Trolley extends TemplateServlet {
    **/
 
   protected String Details(Melati melati)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     trolley.setDefaultDetails(melati);
     melati.getTemplateContext().put("trolley",trolley);
@@ -371,7 +370,7 @@ public class Trolley extends TemplateServlet {
    * @throws InstantiationPropertyException - if we cannot construct trolley
    */
   protected String Confirm(Melati melati)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     if (MelatiUtil.getFormNulled(melati.getTemplateContext(),"submittoken") != null) 
       trolley.setFromForm(melati);
@@ -405,7 +404,7 @@ public class Trolley extends TemplateServlet {
    */
 
   protected String Paid(Melati melati) 
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     trolley.confirmPayment(melati);
     // and get rid of it
@@ -423,7 +422,7 @@ public class Trolley extends TemplateServlet {
    * @throws InstantiationPropertyException - if we cannot construct trolley
    */
   protected String Abandon(Melati melati) 
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     // and get rid of it
     trolley.remove(melati);
@@ -436,7 +435,7 @@ public class Trolley extends TemplateServlet {
    * @param melati - the melati for this request
    */
   protected void assertLogin(Melati melati) 
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     // deligate to your trolley
     trolley.assertLogin(melati);
@@ -467,7 +466,7 @@ public class Trolley extends TemplateServlet {
    */
   private ShoppingTrolleyItem newItem(ShoppingTrolley trolley, Integer id,
                                       Double price, String description)
-   throws InstantiationPropertyException {
+      throws InstantiationPropertyException {
     return trolley.newItem(id, description, price);
   }
 
@@ -482,7 +481,7 @@ public class Trolley extends TemplateServlet {
    * @throws PathInfoException - if we don't understand the PathInfo
    */
   protected MelatiContext melatiContext(Melati melati)
-                          throws PathInfoException {
+      throws PathInfoException {
     ShoppingContext it = new ShoppingContext();
     String[] parts = melati.getPathInfoParts();
     if (parts.length < 2) 

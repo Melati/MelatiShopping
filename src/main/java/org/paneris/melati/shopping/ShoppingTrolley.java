@@ -54,7 +54,7 @@ import org.melati.template.TemplateContext;
 import javax.servlet.http.HttpSession;
 import java.text.NumberFormat;
 import java.util.Locale;
-import org.melati.util.*;
+import org.melati.util.InstantiationPropertyException;
 
  /**
  * <p> A Shopping Trolley stored information in the user's Shopping Trolley.<p>

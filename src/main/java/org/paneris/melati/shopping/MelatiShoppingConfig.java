@@ -109,10 +109,12 @@ public class MelatiShoppingConfig {
  * @throws InstantiationPropertyException - if we cannot instantiate the object
  */
   public org.paneris.melati.shopping.ShoppingTrolley getShoppingTrolley() 
-    throws InstantiationPropertyException {
-      return (org.paneris.melati.shopping.ShoppingTrolley)PropertiesUtils.instanceOfNamedClass(
-	    configuration, ShoppingTrolleyProp, "org.paneris.melati.shopping.ShoppingTrolley",
-	    "org.paneris.melati.shopping.DefaultShoppingTrolley");
+      throws InstantiationPropertyException {
+    return (org.paneris.melati.shopping.ShoppingTrolley)
+             PropertiesUtils.instanceOfNamedClass(
+                 configuration, ShoppingTrolleyProp, 
+                 "org.paneris.melati.shopping.ShoppingTrolley",
+                 "org.paneris.melati.shopping.DefaultShoppingTrolley");
   }
   
 
@@ -126,10 +128,12 @@ public class MelatiShoppingConfig {
  * @throws InstantiationPropertyException - if we cannot instantiate the object
  */
   public org.paneris.melati.shopping.ShoppingTrolleyItem getShoppingTrolleyItem()
-    throws InstantiationPropertyException {
-      return (org.paneris.melati.shopping.ShoppingTrolleyItem)PropertiesUtils.instanceOfNamedClass(
-	    configuration, ShoppingTrolleyItemProp, "org.paneris.melati.shopping.ShoppingTrolleyItem",
-	    "org.paneris.melati.shopping.DefaultShoppingTrolleyItem");
+      throws InstantiationPropertyException {
+    return (org.paneris.melati.shopping.ShoppingTrolleyItem)
+               PropertiesUtils.instanceOfNamedClass(
+               configuration, ShoppingTrolleyItemProp, 
+               "org.paneris.melati.shopping.ShoppingTrolleyItem",
+               "org.paneris.melati.shopping.DefaultShoppingTrolleyItem");
   }
 
 }
