@@ -121,7 +121,7 @@ public abstract class ShoppingTrolley {
   /* have we got anything in the trolley
   */
   public boolean isEmpty() {
-    return !items.elements().hasMoreElements();
+    return items.isEmpty();
   }
   
   /* have we entered any personal information
