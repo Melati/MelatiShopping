@@ -360,7 +360,7 @@ public class Trolley extends TemplateServlet {
   protected String Confirm(Melati melati)
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
-    if (MelatiUtil.getFormNulled(melati.getTemplateContext(),"submit") != null) 
+    if (MelatiUtil.getFormNulled(melati.getTemplateContext(),"submittoken") != null) 
       trolley.setFromForm(melati);
     trolley.save();
     melati.getTemplateContext().put("trolley",trolley);

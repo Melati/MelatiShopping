@@ -16,7 +16,7 @@
 #parse "shopping/Menu.wm"
 </td></tr></table>
 #if (!$trolley.isEmpty()) #begin
-<form method=post action=Confirm>
+<form method=post action=Confirm name=detailsform>
 <table width="350" border="0" cellpadding=0 cellspacing=0><tr><td>
 <table width="0%" border="0" cellpadding=5 cellspacing=0>
   <tr> 
@@ -106,7 +106,8 @@
 </table>
 </td></tr><tr><td align=right>
 <p><br>
-  <input type="submit" name="submit" value="Continue" onClick="return validate(this.form);">
+  <input type=hidden name=submittoken value="true">
+  <input type="submit" name="submittheform" value="Continue" onClick="return validate(this.form);">
 </p>
 </td></tr></table>
 </form>

@@ -1,3 +1,15 @@
+<script TYPE="text/javascript">
+<!--
+  function details() {
+    if (validate(document.detailsform)) {
+	  document.detailsform.submit();
+	}
+  }
+  function confirm() {
+    document.confirmform.submit();
+  }
+//-->
+</script>
 <table cellpadding=0 cellspacing=5 border=1><tr><td>
 <p><b>Buy from us in 4 easy steps:</b></p>
 <ol>
@@ -13,10 +25,26 @@
 #end
   Enter your details</a></li>
   <li>
-#if ($trolley.hasDetails()) #begin
-  <a href="Confirm">
+#if ($melati.Method.equals("Details")) #begin
+  <A HREF='javascript:details()'>
+#end #else #begin
+  #if ($trolley.hasDetails()) #begin
+    <a href="Confirm">
+  #end 
 #end
-  Check your order</a></li>
-  <li>Make your Payment</li>
+    Check your order
+#if ($trolley.hasDetails() || $melati.Method.equals("Details")) #begin
+  </a>
+#end
+</li>
+  <li>
+#if ($melati.Method.equals("Confirm")) #begin
+  <A HREF='javascript:confirm()'>
+#end
+  Make your Payment
+#if ($melati.Method.equals("Confirm")) #begin
+  </a>
+#end
+  </li>
 </ol>
 </td></tr></table>

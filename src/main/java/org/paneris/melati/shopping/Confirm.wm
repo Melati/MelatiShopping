@@ -123,7 +123,7 @@
 </table>
 <!-- this stuff is used for linking to secure trading
      you will need to change this for your own providor -->
-<FORM METHOD="POST" ACTION="https://securetrading.net/authorize/form.cgi">
+<FORM METHOD="POST" ACTION="https://securetrading.net/authorize/form.cgi" name=confirmform>
 <INPUT TYPE=hidden NAME="merchant" VALUE="MerchantName">
 <INPUT TYPE=hidden NAME="name" VALUE="$trolley.Name">
 <INPUT TYPE=hidden NAME="email" VALUE="$trolley.Email">
