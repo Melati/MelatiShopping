@@ -218,8 +218,11 @@ public abstract class ShoppingTrolley {
   /* add an item to the trolley
   */
   public void addItem(ShoppingTrolleyItem item) {
+    // don't add it if it's already there
+    if (!items.containsKey(item.getId())) {
+      orderedItems.add(item); 
+    }
     items.put(item.getId(),item);
-    orderedItems.add(item); 
   }
   
   public ShoppingTrolleyItem newItem(Integer id, String description, Double price) 
