@@ -1,0 +1,154 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<html>
+<head>
+<title>Shopping Basket</title>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+</head>
+<table border=0 cellpadding=0 cellspacing=0 width=100%><tr><td valign=top>
+<font size=4><b>Step 3 - </b></font><font size=5><b>Confirm Your Order</b></font>
+#if ($trolley.isEmpty()) #begin
+<p><b>Your shopping basket is empty, please browse the site to add items to your 
+  basket.</b></p>
+#end #else #begin
+<p>Please confirm your order details.</p>
+#end
+#parse "shopping/Menu.wm"
+</td></tr></table>
+#if (!$trolley.isEmpty()) #begin
+<p><b>Your shopping basket contains:</b>
+(<a href=View>edit basket</a>)
+</p>
+<table width="0%" border="0" cellpadding=0 cellspacing=0><tr><td>
+<table width="0%" border="1" cellpadding=5 cellspacing=0>
+  <tr> 
+    <th>Product</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Value</th>
+  </tr>
+#foreach $item in $trolley.Items #begin
+  <tr> 
+    <td>$item.Description</td>
+    <td align=right>$item.PriceDisplay</td>
+    <td align=right>$item.QuantityDisplay</td>
+    <td align=right>$item.ValueDisplay</td>
+  </tr>
+#end
+
+#if ($trolley.hasDiscount()) #begin
+  <tr> 
+    <td colspan="3"> 
+      <p>Less $trolley.DiscountRateDisplay Discount</p>
+    </td>
+    <td align=right>$trolley.DiscountValueDisplay</td>
+  </tr>
+#end
+#if ($trolley.hasDelivery()) #begin
+  <tr> 
+    <td colspan="3"> 
+      <p>Packing, Insurance and Delivery</p>
+    </td>
+    <td align=right>$trolley.DeliveryDisplay</td>
+  </tr>
+#end
+#if (!$trolley.hasVAT()) #begin
+  <tr> 
+    <td colspan="3"> 
+      <p>Less VAT (not payable outside the EC)</p>
+    </td>
+    <td align=right>$trolley.VATDisplay</td>
+  </tr>
+#end
+  <tr> 
+    <td colspan="3"><b>Total</b></td>
+    <td align=right><b>$trolley.TotalValueDisplay</b></td>
+  </tr>
+</table>
+
+</td></tr>
+</td></tr></table>
+<p>&nbsp;</p>
+<table width="0%" border="1" cellpadding=5 cellspacing=0>
+  <tr> 
+    <td colspan=2>
+<b>Your Details:</b> (<a href=Details>edit details</a>)
+	</td>
+  </tr>
+  <tr> 
+    <td>Name</td>
+    <td>$trolley.Name</td>
+  </tr>
+  <tr> 
+    <td>Email</td>
+    <td>$trolley.Email</td>
+  </tr>
+  <tr> 
+    <td>Telephone</td>
+    <td>$trolley.Tel</td>
+  </tr>
+  <tr> 
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td colspan=2><b>Delivery Details</b> (<a href=Details>edit details</a>)</td>
+  </tr>
+  <tr> 
+    <td valign=top>Address</td>
+    <td><pre>$trolley.DeliveryAddress</pre></td>
+  </tr>
+  <tr> 
+    <td>Town</td>
+    <td>$trolley.Town</td>
+  </tr>
+  <tr> 
+    <td>Postcode</td>
+    <td>$trolley.Postcode</td>
+  </tr>
+  <tr> 
+    <td>Country</td>
+    <td>$trolley.Country</td>
+  </tr>
+  #if ($trolley.message != "") #begin
+  <tr> 
+    <td colspan=2>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td colspan=2><b>Message</b> (<a href=Details>edit message</a>)</td>
+  </tr>
+  <tr> 
+    <td colspan=2>$trolley.Message</td>
+  </tr>
+  #end
+</table>
+<!-- this stuff is used for linking to secure trading
+     you will need to change this for your own providor -->
+<FORM METHOD="POST" ACTION="https://securetrading.net/authorize/form.cgi">
+<INPUT TYPE=hidden NAME="merchant" VALUE="MerchantName">
+<INPUT TYPE=hidden NAME="name" VALUE="$trolley.Name">
+<INPUT TYPE=hidden NAME="email" VALUE="$trolley.Email">
+<INPUT TYPE=hidden NAME="telephone" VALUE="$trolley.Tel">
+<INPUT TYPE=hidden NAME="address" VALUE="$trolley.DeliveryAddress">
+<INPUT TYPE=hidden NAME="deladdress" VALUE="$trolley.DeliveryAddress">
+<INPUT TYPE=hidden NAME="town" VALUE="$trolley.Town">
+<INPUT TYPE=hidden NAME="deltown" VALUE="$trolley.Town">
+<INPUT TYPE=hidden NAME="postcode" VALUE="$trolley.Postcode">
+<INPUT TYPE=hidden NAME="delpostcode" VALUE="$trolley.Postcode">
+<INPUT TYPE=hidden NAME="country" VALUE="$trolley.Country">
+<INPUT TYPE=hidden NAME="delcountry" VALUE="$trolley.Country">
+<INPUT TYPE=hidden NAME="message" VALUE="$trolley.Message">
+<INPUT TYPE=hidden NAME="amount" VALUE="$trolley.TotalValuePence">
+<INPUT TYPE=hidden NAME="currency" VALUE="gbp">
+<INPUT TYPE=hidden NAME="orderinfo" VALUE="
+#parse "shopping/Order.wm"
+">
+<INPUT TYPE=hidden NAME="merchantemail" VALUE="MerchantEmail">
+<INPUT TYPE=hidden NAME="customeremail" VALUE="1">
+<INPUT TYPE=hidden NAME="settlementday" VALUE="1">
+<p>When you have confirmed the information above, please click 
+<input type=submit name=Order value=Order> to enter your credit card details.
+</p>
+</form>
+#end
+</body>
+</html>

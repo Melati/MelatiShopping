@@ -1,0 +1,22 @@
+<table cellpadding=0 cellspacing=5 border=1><tr><td>
+<p><b>Buy from us in 4 easy steps:</b></p>
+<ol>
+  <li>
+#if (!$trolley.isEmpty()) #begin 
+  <a href="View">
+#end
+  Load up your basket</a>
+ </li>
+  <li>
+#if (!$trolley.isEmpty()) #begin 
+  <a href="Details">
+#end
+  Enter your details</a></li>
+  <li>
+#if ($trolley.hasDetails()) #begin
+  <a href="Confirm">
+#end
+  Check your order</a></li>
+  <li>Make your Payment</li>
+</ol>
+</td></tr></table>

@@ -1,0 +1,94 @@
+#set $Response.ContentType = "text/html"
+#set $ml = $melati.HTMLMarkupLanguage
+<html>
+<head>
+<title>Shopping Basket</title>
+<SCRIPT src="$melati.JavascriptLibraryURL/validation.js"></SCRIPT>
+</head>
+<table border=0 cellpadding=0 cellspacing=0 width=100%><tr><td valign=top>
+<font size=4><b>Step 1 - </b></font><font size=5><b>Load up Your Shopping Basket</b></font>
+#if ($trolley.isEmpty()) #begin
+<p><b>Your shopping basket is empty, please browse the site to add items to your 
+  basket.</b></p>
+#end #else #begin
+<p>If you have finished shopping, <a href=Details>Proceed to Stage 2</a>,<br>
+ where you will be asked to enter your address details.</p>
+#end
+#parse "shopping/Menu.wm"
+</td></tr></table>
+#if (!$trolley.isEmpty()) #begin
+<p><b>Your shopping basket contains:</b></p>
+<table width="0%" border="0" cellpadding=0 cellspacing=0><tr><td>
+<table width="0%" border="1" cellpadding=5 cellspacing=0>
+  <tr> 
+<form method=post action="Update">
+    <th>Delete?</td>
+    <th>Product</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Value</th>
+  </tr>
+#foreach $item in $trolley.Items #begin
+  <tr> 
+    <td align=center> 
+      <input type="checkbox" name="trolleyitem_$item.Id;_deleted" value="checkbox">
+    </td>
+    <td>
+$item.Description
+	</td>
+    <td align=right>
+#if ($item.PriceDisplay) #begin
+$item.PriceDisplay
+#end
+</td>
+    <td align=right> 
+      <input type="text" name="trolleyitem_$item.Id;_quantity" value=$item.QuantityDisplay size=3>
+
+    </td>
+    <td align=right>$item.ValueDisplay</td>
+  </tr>
+#end
+
+#if ($trolley.hasDiscount()) #begin
+  <tr> 
+    <td colspan="4"> 
+      <p>Less $trolley.DiscountRateDisplay Discount</p>
+    </td>
+    <td align=right>$trolley.DiscountValueDisplay</td>
+  </tr>
+#end
+#if ($trolley.hasDelivery()) #begin
+  <tr> 
+    <td colspan="4"> 
+      <p>Packing, Insurance and Delivery</p>
+    </td>
+    <td align=right>$trolley.DeliveryDisplay</td>
+  </tr>
+#end
+#if (!$trolley.hasVAT()) #begin
+  <tr> 
+    <td colspan="4"> 
+      <p>Less VAT (not payable outside the EC)</p>
+    </td>
+    <td align=right>$trolley.VATDisplay</td>
+  </tr>
+#end
+  <tr> 
+    <td colspan="4"><b>Total</b></td>
+    <td align=right><b>$trolley.TotalValueDisplay</b></td>
+  </tr>
+</table>
+</td></tr>
+<tr><td align=right>
+<p><br>
+    <input type="submit" name="update" value="Update" onClick="return validate(this.form);">
+	</p>
+</td></tr><tr><td>
+	<p>If you have finished shopping, <a href=Details>Proceed to Stage 2</a>,<br>
+ where you will be asked to enter your address details.</p>
+</form>
+	</td></tr></table>
+#end
+<p>&nbsp;</p>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<pre>#foreach $item in $trolley.Items #begin
+$item.QuantityDisplay x $item.Description at $item.PriceDisplay;.  Value = $item.ValueDisplay
+#end
+Packing, Insurance and Delivery.  Value = $trolley.DeliveryDisplay
+#if (!$trolley.hasVAT()) #begin Less VAT. $trolley.VATDisplay #end
+Total. $trolley.TotalValueDisplay
+</pre>
