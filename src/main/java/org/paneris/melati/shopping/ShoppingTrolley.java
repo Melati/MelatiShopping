@@ -49,6 +49,8 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Enumeration;
 import org.melati.Melati;
+import org.melati.MelatiUtil;
+import org.melati.template.TemplateContext;
 import javax.servlet.http.HttpSession;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -83,7 +85,7 @@ public abstract class ShoppingTrolley {
   protected boolean hasDetails = false;
   Vector orderedItems = new Vector();
   Hashtable items = new Hashtable();
-  MelatiShoppingConfig config;
+  public MelatiShoppingConfig config;
   public Melati melati;
 
   /**
@@ -368,15 +370,16 @@ public abstract class ShoppingTrolley {
   }
 
   public void setFromForm(Melati melati) {
-    setName(getFormNulled(melati,"trolley_name"));
-    setEmail(getFormNulled(melati,"trolley_email"));
-    setTel(getFormNulled(melati,"trolley_tel"));
-    setDeliveryAddress(getFormNulled(melati,"trolley_deliveryaddress"));
-    setTown(getFormNulled(melati,"trolley_town"));
-    setCounty(getFormNulled(melati,"trolley_county"));
-    setCountry(getFormNulled(melati,"trolley_country"));
-    setPostcode(getFormNulled(melati,"trolley_postcode"));
-    setMessage(getFormNulled(melati,"trolley_message"));
+    TemplateContext tc = melati.getTemplateContext();
+    setName(MelatiUtil.getFormNulled(tc,"trolley_name"));
+    setEmail(MelatiUtil.getFormNulled(tc,"trolley_email"));
+    setTel(MelatiUtil.getFormNulled(tc,"trolley_tel"));
+    setDeliveryAddress(MelatiUtil.getFormNulled(tc,"trolley_deliveryaddress"));
+    setTown(MelatiUtil.getFormNulled(tc,"trolley_town"));
+    setCounty(MelatiUtil.getFormNulled(tc,"trolley_county"));
+    setCountry(MelatiUtil.getFormNulled(tc,"trolley_country"));
+    setPostcode(MelatiUtil.getFormNulled(tc,"trolley_postcode"));
+    setMessage(MelatiUtil.getFormNulled(tc,"trolley_message"));
     hasDetails = true;
   }
 
@@ -490,12 +493,6 @@ public abstract class ShoppingTrolley {
   public String displayCurrency(Double value) {
     return displayCurrency(value.doubleValue());
   }
-  
-  public String getFormNulled(Melati melati, String field) {
-    String val = melati.getTemplateContext().getForm(field);
-    if (val == null) return null;
-    return val.equals("")?null:val;
-  }
     
   public String baseURL() {
     return melati.getRequest().getServletPath() + "/" + 
@@ -520,6 +517,10 @@ public abstract class ShoppingTrolley {
   
   public String updateURL() {
     return baseURL() + "Update/";
+  }
+  
+  public String paidURL() {
+    return baseURL() + "Paid/";
   }
 
 
