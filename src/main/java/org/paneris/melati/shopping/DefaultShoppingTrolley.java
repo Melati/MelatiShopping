@@ -1,6 +1,7 @@
 package org.paneris.melati.shopping;
 
 import org.paneris.melati.shopping.ShoppingTrolley;
+import org.melati.Melati;
 import java.util.Locale;
 
 /**
@@ -69,7 +70,7 @@ public class DefaultShoppingTrolley extends ShoppingTrolley {
     return true;
   }
 
-  public void confirmPayment() {
+  public void confirmPayment(Melati melati) {
     return;
   }
 

@@ -204,7 +204,7 @@ public class Trolley extends WebmacroMelatiServlet {
   protected String Paid(Melati melati) 
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
-    trolley.confirmPayment();
+    trolley.confirmPayment(melati);
     // and get rid of it
     trolley.remove(melati);
     return shoppingTemplate(melati, "Paid.wm");

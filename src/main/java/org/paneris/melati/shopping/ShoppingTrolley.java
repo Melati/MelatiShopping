@@ -96,7 +96,7 @@ public abstract class ShoppingTrolley {
 
   /* confirm payment of this trolley
   */
-  public abstract void confirmPayment();
+  public abstract void confirmPayment(Melati melati);
 
   /* load a trolley from something persistent
   */
