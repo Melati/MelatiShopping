@@ -12,7 +12,8 @@ import org.webmacro.servlet.*;
 import org.webmacro.engine.*;
 import org.webmacro.resource.*;
 import java.util.*;
-import javax.servlet.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import java.net.URLEncoder;
 
 

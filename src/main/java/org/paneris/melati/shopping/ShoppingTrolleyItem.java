@@ -7,7 +7,6 @@ import org.melati.*;
 
 public abstract class ShoppingTrolleyItem  {
 
-  public Melati melati;
   protected Integer id;
   protected double quantity;
   protected double price;
@@ -15,6 +14,7 @@ public abstract class ShoppingTrolleyItem  {
   protected String description;
   // the shopping trolley to which this item belongs
   protected ShoppingTrolley trolley;
+  public Melati melati;
 
   public static synchronized ShoppingTrolleyItem newTrolleyItem(MelatiShoppingConfig config)
    throws InstantiationPropertyException {
@@ -25,7 +25,7 @@ public abstract class ShoppingTrolleyItem  {
   /**
    * public Constructor to build a trolley item from some id
   **/
-  public void initialise(ShoppingTrolley trolley, Melati melati, Locale locale, 
+  public void initialise(ShoppingTrolley trolley, Melati melati,
                          Integer id, String description, Double price) {
     this.trolley = trolley;
     this.id = id;
@@ -35,7 +35,6 @@ public abstract class ShoppingTrolleyItem  {
       // set something in the description!
     if (this.description == null) this.description = id +"";
     if (price != null) this.price = price.doubleValue();
-    this.locale = locale;
   }
 
   
@@ -94,7 +93,7 @@ public abstract class ShoppingTrolleyItem  {
   /* display the price of this item
   */
   public String getPriceDisplay(){
-    return displayCurrency(price);
+    return displayCurrency(getPrice());
   }
 
   /* work out the cost of delivery
@@ -134,7 +133,8 @@ public abstract class ShoppingTrolleyItem  {
   /* format a number in the locale currency
   */
   private String displayCurrency(double value) {
-    return new String(NumberFormat.getCurrencyInstance(locale).format(value));
+    return new String(NumberFormat.getCurrencyInstance(trolley.getLocale())
+                                  .format(value));
   } 
 
 }

@@ -83,13 +83,12 @@ public abstract class ShoppingTrolley {
   Vector orderedItems = new Vector();
   Hashtable items = new Hashtable();
   MelatiShoppingConfig config;
-  protected Melati melati;
+  public Melati melati;
 
   /**
    * private Constructor to build an empty ShoppingTrolley
   **/
   protected void initialise(Melati melati, MelatiShoppingConfig config) {
-    locale = getLocale();
     this.config = config;
     this.melati = melati;
   }
@@ -103,7 +102,6 @@ public abstract class ShoppingTrolley {
     initialise(melati,config);
     HttpSession session = melati.getSession();
     session.putValue(name(),this);
-    this.melati = melati;
   }
   
   /** 
@@ -135,9 +133,16 @@ public abstract class ShoppingTrolley {
     return config.getShoppingTrolley();
   }
 
-  /* set the Locale for this trolley
+  /* get the Locale for this trolley
   */
   public abstract Locale getLocale();
+
+  
+  /* set the Locale for this trolley
+  */
+  public void setLocale(Locale locale){
+    this.locale = locale;
+  }
 
   /* confirm payment of this trolley
   */
@@ -211,7 +216,7 @@ public abstract class ShoppingTrolley {
   public ShoppingTrolleyItem newItem(Integer id, String description, Double price) 
    throws InstantiationPropertyException {
     ShoppingTrolleyItem item = ShoppingTrolleyItem.newTrolleyItem(config);
-    item.initialise(this, melati, locale, id, description, price);
+    item.initialise(this, melati, id, description, price);
     addItem(item);
     return item;
   }
@@ -452,8 +457,14 @@ public abstract class ShoppingTrolley {
 
   /* format a number in the locale currency
   */
-  private String displayCurrency(double value) {
-    return new String(NumberFormat.getCurrencyInstance(locale).format(value));
+  public String displayCurrency(double value) {
+    return new String(NumberFormat.getCurrencyInstance(getLocale()).format(value));
+  }
+
+  /* format a number in the locale currency
+  */
+  public String displayCurrency(Double value) {
+    return displayCurrency(value.doubleValue());
   }
   
   public String getFormNulled(Melati melati, String field) {
