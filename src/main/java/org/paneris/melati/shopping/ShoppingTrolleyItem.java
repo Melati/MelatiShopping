@@ -18,7 +18,6 @@ public abstract class ShoppingTrolleyItem  {
 
   public static synchronized ShoppingTrolleyItem newTrolleyItem(MelatiShoppingConfig config)
    throws InstantiationPropertyException {
-    System.err.println("new item");
     return config.getShoppingTrolleyItem();
   }
   
