@@ -38,12 +38,13 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <repository>
     <connection>
-      scm:cvs:pserver:anon@melati.org:/usr/cvsroot:shopping
+      scm:cvs:pserver:anon@melati.org:/usr/cvsroot:MelatiShopping
     </connection>
-    <developerConnection>scm:cvs:ext:anon@melati.org:/usr/cvsroot:shopping</developerConnection>
+
+<developerConnection>scm:cvs:ext:anon@melati.org:/usr/cvsroot:MelatiShopping</developerConnection>
 
     <url>
-      http://paneris.org/cgi-bin/cvsweb.cgi/shopping/
+      http://paneris.org/cgi-bin/cvsweb.cgi/MelatiShopping/
     </url>
   </repository>
 
