@@ -1,17 +1,15 @@
 package org.paneris.melati.shopping;
 
-import org.melati.*;
-import org.melati.util.*;
-import org.melati.template.webmacro.*;
-import org.melati.template.*;
-import org.melati.servlet.*;
-import org.melati.poem.*;
-import org.webmacro.*;
-import org.webmacro.util.*;
-import org.webmacro.servlet.*;
-import org.webmacro.engine.*;
-import org.webmacro.resource.*;
-import java.util.*;
+import org.melati.Melati;
+import org.melati.MelatiUtil;
+import org.melati.util.MelatiException;
+import org.melati.util.InstantiationPropertyException;
+import org.melati.template.TemplateContext;
+import org.melati.servlet.TemplateServlet;
+import org.melati.servlet.MelatiContext;
+import org.melati.servlet.PathInfoException;
+import org.melati.servlet.InvalidUsageException;
+import java.util.Enumeration;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import java.net.URLEncoder;
@@ -445,7 +443,7 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * create the full name of the tempalte to be returned
+   * create the full name of the template to be returned
    *
    * @param melati - the melati for this request (not used)
    * @param name - the name of the template
