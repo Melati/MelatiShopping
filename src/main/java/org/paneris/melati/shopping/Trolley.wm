@@ -31,7 +31,7 @@
 #foreach $item in $trolley.Items #begin
   <tr> 
     <td align=center> 
-      <input type="checkbox" name="trolleyitem_$item.Id;_deleted" value="checkbox">
+      <input type="checkbox" name="trolleyitem_$(item.Id)_deleted" value="checkbox">
     </td>
     <td>
 $item.Description
@@ -42,7 +42,7 @@ $item.PriceDisplay
 #end
 </td>
     <td align=right> 
-      <input type="text" name="trolleyitem_$item.Id;_quantity" value=$item.QuantityDisplay size=3>
+      <input type="text" name="trolleyitem_$(item.Id)_quantity" value=$item.QuantityDisplay size=3>
 
     </td>
     <td align=right>$item.ValueDisplay</td>
