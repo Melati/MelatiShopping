@@ -496,7 +496,7 @@ public abstract class ShoppingTrolley {
     
   public String baseURL() {
     return melati.getRequest().getServletPath() + "/" + 
-           melati.getContext().getLogicalDatabase() + "/";
+           melati.getContext().logicalDatabase + "/";
   }
   
   public String viewURL() {
