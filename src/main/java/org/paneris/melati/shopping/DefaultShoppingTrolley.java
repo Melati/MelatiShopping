@@ -1,6 +1,5 @@
 package org.paneris.melati.shopping;
 
-import org.paneris.melati.shopping.ShoppingTrolley;
 import org.melati.Melati;
 import java.util.Locale;
 
@@ -19,70 +18,84 @@ import java.util.Locale;
 
 public class DefaultShoppingTrolley extends ShoppingTrolley {
   
-  /* set the Locale for this trolley
+ /** 
+  * set the Locale for this trolley
   */
   public Locale getLocale(){
     return Locale.UK;
   }
 
-  /* load a trolley from something persistent
+ /**
+  * load a trolley from something persistent
   */
   public void load(Integer id) {
   }
 
-  /* save a trolley to something persistent
+ /**
+  * save a trolley to something persistent
   */
   public void save() {
   }
   
-  /* set the user's detault details into this trolley.  this is useful
+  /** 
+   * set the user's detault details into this trolley.  this is useful
    * if users have already logged in, and we don't want them to reenter their 
    * details
    */
   public void setDefaultDetails(Melati melati) {
   }
   
-  /* do something to force users to login
-   * you should throw an access poem exception in order to generate the login page
-   */
+ /**
+  * do something to force users to login
+  * you should throw an access poem exception in order to 
+  * generate the login page.
+  */
   public void assertLogin(Melati melati) {
   }
 
-  /* provide a mechanism for working out if 
-     this order should include a delivery charge
+ /**
+  * provide a mechanism for working out if 
+  * this order should include a delivery charge
   */
   public boolean hasDelivery(){
     return false;
   }
 
-  /* you need to provide some mechanism for calculating the delivery
-     value for the order (item delivery values are calculated individually
+ /**
+  * you need to provide some mechanism for calculating the delivery
+  * value for the order (item delivery values are calculated individually
   */
   public double getDeliveryValue() {
     return 0;
   }
   
 
-  /* provide a mechanism for working out if 
-     this order should include a discount
+ /** 
+  * provide a mechanism for working out if 
+  * this order should include a discount
   */
   public boolean hasDiscount() {
     return false;
   }
 
-  /* if you want to apply a discount to this order, do it here
+ /** 
+  * if you want to apply a discount to this order, do it here
   */
   public double getDiscountRate() {
     return 0;
   }
 
-  /* provide a mechanism for working out if 
-     this order should include VAT (default should be true)
+ /** 
+  * provide a mechanism for working out whether 
+  * this order should include VAT (default should be true)
   */
   public boolean hasVAT() {
     return true;
   }
 
+ /** 
+  * A call back point for the payment server
+  */
   public void confirmPayment(Melati melati) {
     return;
   }
