@@ -75,6 +75,7 @@ public abstract class ShoppingTrolley {
   protected String name;
   protected String tel;
   protected String town;
+  protected String county;
   protected String country;
   protected String postcode;
   protected String message;
@@ -369,6 +370,7 @@ public abstract class ShoppingTrolley {
     setTel(getFormNulled(melati,"trolley_tel"));
     setDeliveryAddress(getFormNulled(melati,"trolley_deliveryaddress"));
     setTown(getFormNulled(melati,"trolley_town"));
+    setCounty(getFormNulled(melati,"trolley_county"));
     setCountry(getFormNulled(melati,"trolley_country"));
     setPostcode(getFormNulled(melati,"trolley_postcode"));
     setMessage(getFormNulled(melati,"trolley_message"));
@@ -439,6 +441,17 @@ public abstract class ShoppingTrolley {
   */
   public String getTown() {
     return town;
+  }
+
+  /* set the county
+  */
+  public void setCounty(String a) {
+    county = a;
+  }
+  /* get the county
+  */
+  public String getCounty() {
+    return county;
   }
 
   /* set the country
