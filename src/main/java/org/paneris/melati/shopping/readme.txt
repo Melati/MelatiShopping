@@ -223,7 +223,7 @@ whatever) for you.  Most Payment Servers offer this facility.
 -----------------------------
 
 You can add items to your shopping trolley using the following URL:
-http://<host name>/<servlet zone>/org.paneris.melati.shopping.Trolley/<database name>/<product id>/Add
+http://<host name>/<servlet zone>/org.paneris.melati.shopping.Trolley/<database name>/Add/<product id>/
 
 This will load the product with the supplied Troid, using the method:
 
