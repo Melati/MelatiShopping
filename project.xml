@@ -217,6 +217,11 @@ subscribe.melati@messageboards.paneris.org
 
 
   <dependencies>
+      <dependency>
+      <id>melati</id>
+      <version>0.7.0</version>
+      <url>http://www.melati.org/</url>
+    </dependency>
     <dependency>
       <id>webmacro</id>
       <version>1.0</version>
