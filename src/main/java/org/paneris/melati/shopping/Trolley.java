@@ -15,16 +15,7 @@ import javax.servlet.ServletException;
 
 
 /** 
- * The Melati Shopping Trolley Interface is designed to provide 
- * a flexible adstraction of the basic processes of allowing 
- * customers to buy goods on a website. 
- * By default, it is not integrated with POEM, and so makes 
- * no assumptions about
- * the underlying database implementaion.
- *
- * Please read the readme.txt file for full instructions.
- *
- * The Trolley is a servlet that handles the user's interaction with 
+ * A servlet that handles the user's interaction with 
  * the Shopping Trolley.
  *
  * @see org.paneris.melati.shopping.ShoppingTrolley
