@@ -2,8 +2,8 @@ package org.paneris.melati.shopping;
 
 import java.util.Locale;
 import java.text.NumberFormat;
-import org.melati.util.*;
-import org.melati.*;
+import org.melati.util.InstantiationPropertyException;
+import org.melati.Melati;
 
 public abstract class ShoppingTrolleyItem  {
 
