@@ -45,7 +45,7 @@ public class DefaultShoppingTrolley extends ShoppingTrolley {
   /* do something to force users to login
    * you should throw an access poem exception in order to generate the login page
    */
-  public void assertLogin(Melati melati) throws AccessPoemException {
+  public void assertLogin(Melati melati) {
   }
 
   /* provide a mechanism for working out if 
