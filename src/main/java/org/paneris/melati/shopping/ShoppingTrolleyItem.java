@@ -20,7 +20,7 @@ public abstract class ShoppingTrolleyItem  {
    throws InstantiationPropertyException {
     return config.getShoppingTrolleyItem();
   }
-  
+
   /**
    * public Constructor to build a trolley item from some id
   **/
@@ -36,12 +36,12 @@ public abstract class ShoppingTrolleyItem  {
     if (price != null) this.price = price.doubleValue();
   }
 
-  
-  /* load in information about this product given an id.  
+
+  /* load in information about this product given an id.
      perhaps this id represents a poem troid?
   */
   protected abstract void load(Integer id);
-    
+
   /* the id
   */
   public Integer getId() {
@@ -76,7 +76,7 @@ public abstract class ShoppingTrolleyItem  {
       return quantity + "";
     }
   }
-  
+
   /* the price of this item
   */
   public double getPrice() {
@@ -98,17 +98,17 @@ public abstract class ShoppingTrolleyItem  {
   /* work out the cost of delivery
   */
   public abstract double getDeliveryValue();
-                             
+
   /* display the cost of delivery
   */
-  public String getDeliveryDisplay() { 
+  public String getDeliveryDisplay() {
     return displayCurrency(getDeliveryValue());
   }
 
   /* calculate the value (without delivery)
   */
   public double getValue() {
-    return getPrice() * getQuantity();
+    return trolley.roundTo2dp(getPrice() * getQuantity());
   }
 
   /* display the item value
@@ -120,7 +120,7 @@ public abstract class ShoppingTrolleyItem  {
   /* calculate the value (without delivery)
   */
   public double getTotalValue() {
-    return getPrice() * getQuantity() + getDeliveryValue();
+    return getValue() + getDeliveryValue();
   }
 
   /* display the item value
@@ -134,7 +134,7 @@ public abstract class ShoppingTrolleyItem  {
   public String displayCurrency(double value) {
     return new String(NumberFormat.getCurrencyInstance(trolley.getLocale())
                                   .format(value));
-  } 
+  }
 
 }
 

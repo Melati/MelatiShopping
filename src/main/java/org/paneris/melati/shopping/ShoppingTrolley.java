@@ -99,27 +99,27 @@ public abstract class ShoppingTrolley {
   /**
    * public Constructor to build a trolley from some id
   **/
-  public void initialise(Melati melati, MelatiShoppingConfig config, Integer id) 
+  public void initialise(Melati melati, MelatiShoppingConfig config, Integer id)
    throws InstantiationPropertyException {
     initialise(melati,config);
     load(id);
     HttpSession session = melati.getSession();
     session.putValue(name(),this);
   }
-  
-  /** 
+
+  /**
    * remove any trolley from the session
    */
   public void remove(Melati melati) {
     HttpSession session = melati.getSession();
     session.removeValue(name());
   }
-    
+
 
   /**
    * Returns the single instance, creating one if it can't be found.
    */
-  public static synchronized ShoppingTrolley getInstance(Melati melati, MelatiShoppingConfig config) 
+  public static synchronized ShoppingTrolley getInstance(Melati melati, MelatiShoppingConfig config)
    throws InstantiationPropertyException {
     HttpSession session = melati.getSession();
     ShoppingTrolley instance = (ShoppingTrolley) session.getValue(name());
@@ -132,7 +132,7 @@ public abstract class ShoppingTrolley {
     return instance;
   }
 
-  public static synchronized ShoppingTrolley newTrolley(MelatiShoppingConfig config) 
+  public static synchronized ShoppingTrolley newTrolley(MelatiShoppingConfig config)
    throws InstantiationPropertyException {
     return config.getShoppingTrolley();
   }
@@ -141,7 +141,7 @@ public abstract class ShoppingTrolley {
   */
   public abstract Locale getLocale();
 
-  
+
   /* set the Locale for this trolley
   */
   public void setLocale(Locale locale){
@@ -160,21 +160,21 @@ public abstract class ShoppingTrolley {
   */
   public abstract void save();
 
-  /* this is done for each request, so anything special that needs to be done 
+  /* this is done for each request, so anything special that needs to be done
    * can be put in here
   */
   public void configureRequest(Melati melati) {
     this.melati = melati;
-  }  
+  }
 
   /* do something to force users to login
    * you could perhaps throw an access poem exception in order to let the
    * servlet generate the login page
    */
   public abstract void assertLogin(Melati melati);
-  
+
   /* set the user's detault details into this trolley.  this is useful
-   * if users have already logged in, and we don't want them to reenter their 
+   * if users have already logged in, and we don't want them to reenter their
    * details
    */
   public abstract void setDefaultDetails(Melati melati);
@@ -191,13 +191,13 @@ public abstract class ShoppingTrolley {
   public Enumeration getItems() {
     return orderedItems.elements();
   }
-  
+
   /* have we got anything in the trolley
   */
   public boolean isEmpty() {
     return items.isEmpty();
   }
-  
+
   /* have we entered any personal information
   */
   public boolean hasDetails() {
@@ -214,7 +214,7 @@ public abstract class ShoppingTrolley {
   */
   public void removeItem(ShoppingTrolleyItem item) {
     items.remove(item.getId());
-    orderedItems.removeElement(item); 
+    orderedItems.removeElement(item);
   }
 
   /* add an item to the trolley
@@ -222,12 +222,12 @@ public abstract class ShoppingTrolley {
   public void addItem(ShoppingTrolleyItem item) {
     // don't add it if it's already there
     if (!items.containsKey(item.getId())) {
-      orderedItems.add(item); 
+      orderedItems.add(item);
     }
     items.put(item.getId(),item);
   }
-  
-  public ShoppingTrolleyItem newItem(Integer id, String description, Double price) 
+
+  public ShoppingTrolleyItem newItem(Integer id, String description, Double price)
    throws InstantiationPropertyException {
     ShoppingTrolleyItem item = ShoppingTrolleyItem.newTrolleyItem(config);
     item.initialise(this, melati, id, description, price);
@@ -269,11 +269,12 @@ public abstract class ShoppingTrolley {
   /* format the total order value in pence, typically ecomerce sites
      accept the values in pence not pounds
   */
+
   public String getTotalValuePence() {
-    return (new Double(getTotalValue() * 100)).intValue() + "";
+    return (new Double(roundTo2dp(getTotalValue() * 100))).intValue() + "";
   }
 
-  /* provide a mechanism for working out if 
+  /* provide a mechanism for working out if
      this order should include a delivery charge
   */
   public abstract boolean hasDelivery();
@@ -304,7 +305,7 @@ public abstract class ShoppingTrolley {
     return displayCurrency(getTotalDeliveryValue());
   }
 
-  /* provide a mechanism for working out if 
+  /* provide a mechanism for working out if
      this order should include a discount
   */
   public abstract boolean hasDiscount();
@@ -319,11 +320,11 @@ public abstract class ShoppingTrolley {
   public double getDiscountValue() {
     double value = 0;
     if (hasDiscount()) {
-      value = 0 - getValue()*getDiscountRate();
+      value = 0 - roundTo2dp(getValue()*getDiscountRate());
     }
     return value;
   }
-  
+
   /* display the discount (if present)
   */
   public String getDiscountRateDisplay() {
@@ -344,20 +345,20 @@ public abstract class ShoppingTrolley {
     return displayCurrency(getDiscountValue());
   }
 
-  /* provide a mechanism for working out if 
+  /* provide a mechanism for working out if
      this order should include VAT (default should be true)
   */
   public abstract boolean hasVAT();
 
   /* calculate the VAT value of the order
-     typically items are priced inclusive of VAT and orders 
+     typically items are priced inclusive of VAT and orders
      are therefor also inclusive of VAT.  If this order is
      for someone who should not be charged VAT, we need to subtract VAT
      from the order value
   */
   public double getVATValue() {
     if (!hasVAT()) {
-      return getValue() * -0.14894;
+      return roundTo2dp(getValue() * -0.14894);
     } else {
       return 0;
     }
@@ -471,12 +472,12 @@ public abstract class ShoppingTrolley {
     return country;
   }
 
-  /* set the delivery message 
+  /* set the delivery message
   */
   public void setMessage(String a) {
     message = a;
   }
-  /* get the delivery message 
+  /* get the delivery message
   */
   public String getMessage() {
     return message;
@@ -493,36 +494,41 @@ public abstract class ShoppingTrolley {
   public String displayCurrency(Double value) {
     return displayCurrency(value.doubleValue());
   }
-    
+
   public String baseURL() {
-    return melati.getRequest().getServletPath() + "/" + 
+    return melati.getRequest().getServletPath() + "/" +
            melati.getContext().logicalDatabase + "/";
   }
-  
+
   public String viewURL() {
     return baseURL() + "View/";
   }
-  
+
   public String detailsURL() {
     return baseURL() + "Details/";
   }
-  
+
   public String confirmURL() {
     return baseURL() + "Confirm/";
   }
-  
+
   public String abandonURL() {
     return baseURL() + "Abandon/";
   }
-  
+
   public String updateURL() {
     return baseURL() + "Update/";
   }
-  
+
   public String paidURL() {
     return baseURL() + "Paid/";
   }
 
+  public static double roundTo2dp(double num) {
+    int a = Math.round(new Float(num * 100).floatValue());
+    double b = new Double(a).doubleValue();
+    return (b/100);
+  }
 
 }
 
