@@ -18,22 +18,24 @@ import java.net.URLEncoder;
 
 
 /** 
- * The Melati Shopping Trolley Interface is designed to provide a flexible adstraction
- * of the basic processes of allowing customers to buy goods on a website. By
- * default, it is not integrated with POEM, and so makes no assumptions about
+ * The Melati Shopping Trolley Interface is designed to provide 
+ * a flexible adstraction of the basic processes of allowing 
+ * customers to buy goods on a website. 
+ * By default, it is not integrated with POEM, and so makes 
+ * no assumptions about
  * the underlying database implementaion.
  *
  * Please read the readme.txt file for full instructions.
  *
- * The Trolley is a servlet that handles the user's interaction with the Shopping
- * Trolley.
+ * The Trolley is a servlet that handles the user's interaction with 
+ * the Shopping Trolley.
  *
  * @see org.paneris.melati.shopping.ShoppingTrolley
  * @see org.paneris.melati.shopping.ShoppingTrolleyItem
  * @see org.paneris.melati.shopping.DefaultShoppingTrolley
  * @see org.paneris.melati.shopping.DefaultShoppingTrolleyItem
  *
- */
+ **/
 
 public class Trolley extends TemplateServlet {
 
@@ -46,10 +48,11 @@ public class Trolley extends TemplateServlet {
    *
    * @param conf - the Servlet's config parameters
    * @see org.paneris.melati.shopping.MelatiShoppingConfig
-   */
-  public void init( ServletConfig conf ) throws ServletException
+   **/
+
+  public void init(ServletConfig conf ) throws ServletException
   {
-     super.init( conf );
+     super.init(conf );
      try {
        config = new MelatiShoppingConfig();
      } catch (MelatiException e) {
@@ -66,13 +69,15 @@ public class Trolley extends TemplateServlet {
    * @return - the name of the template to be returned to the user
    *
    * @throws InvalidUsageException - if this request has an invalid form
-   */
+   **/
+
   protected String doTemplateRequest(Melati melati, TemplateContext context)
       throws Exception {
 
     if (config==null) 
        throw new ShoppingConfigException("Shopping Trolley not Configured");
-    // at any pint, the user can be forced to login, by simply appending "?login"
+    // at any point, the user can be forced to login, 
+    // by simply appending "?login"
     // to the url
     if (MelatiUtil.getFormNulled(context,"login") != null) assertLogin(melati);
     ShoppingContext shoppingContext = (ShoppingContext)melati.getContext();
@@ -104,8 +109,9 @@ public class Trolley extends TemplateServlet {
    * @return - "Trolley" - the page where users manipulate their 
    *           Shopping Trolley
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
-   */
+   * @throws InstantiationPropertyException - if we cannot construct trolley
+   **/
+
   protected String Load(Melati melati, Integer id)
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.newTrolley(config);
@@ -123,8 +129,9 @@ public class Trolley extends TemplateServlet {
    * @return - "Trolley" - the page where users manipulate their 
    *           Shopping Trolley
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
-   */
+   * @throws InstantiationPropertyException - if we cannot construct trolley
+   **/
+
   protected String Save(Melati melati)
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -142,7 +149,7 @@ public class Trolley extends TemplateServlet {
    *           Shopping Trolley
    *
    * @throws InstantiationPropertyException - if we cannot construct the trolley
-   */
+   **/
   protected String View(Melati melati)
    throws InstantiationPropertyException {
     melati.getTemplateContext().put("trolley", ShoppingTrolley.getInstance(melati,config));
@@ -189,22 +196,25 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * add multiple items to the trolley, or add to the quantities already in the 
-   * trolley.  the POSTed form is analysed for fields with names of 
+   * add multiple items to the trolley, 
+   * or add to the quantities already in the 
+   * trolley.  
+   * The POSTed form is analysed for fields with names of 
    * the form:
    *
    * product_<item id> - the id of the item to be added
    * quantity_<item id> - the quantity to add
    *
-   * if no quantity is set, a single item will be added
+   * If no quantity is set, a single item will be added.
    *
    * @param melati - the melati for this request
    *
    * @return - "Trolley" - the page where users manipulate their 
    *           Shopping Trolley
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
-   */
+   * @throws InstantiationPropertyException - if we cannot construct trolley
+   **/
+
   protected String MultipleAdd(Melati melati)
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -262,8 +272,9 @@ public class Trolley extends TemplateServlet {
    * @return - "Trolley" - the page where users manipulate their 
    *           Shopping Trolley
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
-   */
+   * @throws InstantiationPropertyException - if we cannot construct trolley
+   **/
+
   protected String Add(Melati melati, Integer id, double quantity)
    throws InstantiationPropertyException {
      System.err.println("Adding");
@@ -295,8 +306,9 @@ public class Trolley extends TemplateServlet {
    * @return - "Trolley" - the page where users manipulate their 
    *           Shopping Trolley
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
-   */
+   * @throws InstantiationPropertyException - if we cannot construct trolley
+   **/
+
   protected String Remove(Melati melati, Integer id)
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -307,7 +319,8 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * set the quantity of an item in the trolley, the product and new quantity is
+   * set the quantity of an item in the trolley, 
+   * the product and new quantity is
    * specified on the pathinfo which should be of the form:
    *
    * /<logicaldatabase>/<id>/<quantity>/Set/
@@ -318,8 +331,9 @@ public class Trolley extends TemplateServlet {
    * @return - "Trolley" - the page where users manipulate their 
    *           Shopping Trolley
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
-   */
+   * @throws InstantiationPropertyException - if we cannot construct trolley
+   **/
+
   protected String Set(Melati melati, Integer id, double quantity)
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -337,8 +351,9 @@ public class Trolley extends TemplateServlet {
    *
    * @return - "Details" - the page where users enter their details
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
-   */
+   * @throws InstantiationPropertyException - if we cannot construct trolley
+   **/
+
   protected String Details(Melati melati)
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -355,7 +370,7 @@ public class Trolley extends TemplateServlet {
    *
    * @return - "Confirm" - the page where users confirm their order
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
+   * @throws InstantiationPropertyException - if we cannot construct trolley
    */
   protected String Confirm(Melati melati)
    throws InstantiationPropertyException {
@@ -371,15 +386,15 @@ public class Trolley extends TemplateServlet {
    * complete the user's shopping experience, and remove their Shopping Trolley
    * from the Session
    *
-   * If you need to do something (like send an email) following confirmation of 
-   * payment, define the method in <Your>ShoppingTrolley.java:
+   * If you need to do something (like send an email) following confirmation 
+   * of payment, define the method in <Your>ShoppingTrolley.java:
    * 
    *  public void confirmPayment(Melati melati) {}
    *
-   * Because the callback request (typically) comes from the Payment Server, you
-   * will not have the user's shoping trolley (Session) available to them.  You 
-   * will therefor need to get whatever information you require from something 
-   * persistent.
+   * Because the callback request (typically) comes from the Payment Server, 
+   * you will not have the user's shoping trolley (Session) available to them.
+   * You will therefore need to get whatever information you require from 
+   * something persistent.
    *
    * The alternative is to get the Payment Server to generate the emails (or 
    * whatever) for you.  Most Payment Servers offer this facility. 
@@ -388,8 +403,9 @@ public class Trolley extends TemplateServlet {
    *
    * @return - "Paid" - a message thanking the user for their order
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
+   * @throws InstantiationPropertyException - if we cannot construct trolley
    */
+
   protected String Paid(Melati melati) 
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -406,7 +422,7 @@ public class Trolley extends TemplateServlet {
    *
    * @return - "Trolley" - the initial trolley page
    *
-   * @throws InstantiationPropertyException - if we cannot construct the trolley
+   * @throws InstantiationPropertyException - if we cannot construct trolley
    */
   protected String Abandon(Melati melati) 
    throws InstantiationPropertyException {
@@ -458,8 +474,8 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * override the building of the MelatiContext in order to glean the additional
-   * information required for the Shopping Trolley system
+   * override the building of the MelatiContext in order to glean the 
+   * additional information required for the Shopping Trolley system
    *
    * @param melati - the melati for this request
    *
