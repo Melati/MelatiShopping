@@ -227,6 +227,12 @@ subscribe.melati@messageboards.paneris.org
       <version>1.0</version>
       <url>http://www.webmacro.org/</url>
     </dependency>
+    <dependency>
+      <id>servlet</id>
+      <version>2.2</version>
+      <url>http://java.sun.com/</url>
+    </dependency>
+    
   </dependencies>
 
   <build>
