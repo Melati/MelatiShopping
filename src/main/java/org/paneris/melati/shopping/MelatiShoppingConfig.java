@@ -56,7 +56,7 @@ import org.melati.util.InstantiationPropertyException;
 
 /** 
  * The MelatiShoppingConfig provides configuration information for the Melati 
- * Shopping Interface 
+ * Shopping Interface.
  */
 
 public class MelatiShoppingConfig {
