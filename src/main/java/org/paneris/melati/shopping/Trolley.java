@@ -483,19 +483,14 @@ public class Trolley extends TemplateServlet {
     if (parts.length < 2) 
       throw new PathInfoException(
           "The servlet expects to see pathinfo in the form " +
-          "/db/method/ or /db/troid/method/ or /db/troid/quantity/method/");
+          "/db/method/ or /db/method/troid or /db/method/troid/quantity");
     it.logicalDatabase = parts[0];
-    if (parts.length == 2) it.method = parts[1];
+    it.method = parts[1];
     try {
-      if (parts.length == 3) {
-        it.stid = new Integer(parts[1]);
-        it.method = parts[2];
-      }
-      if (parts.length > 3) {
-        it.stid = new Integer(parts[1]);
-        it.quantity = (new Double(parts[2])).doubleValue();
-        it.method = parts[3];
-      }
+      if (parts.length > 2 && !parts[2].equals("")) 
+        it.stid = new Integer(parts[2]);
+      if (parts.length > 3 && !parts[3].equals(""))
+        it.quantity = (new Double(parts[3])).doubleValue();
     } catch (NumberFormatException e) {
       throw new PathInfoException(
           "The servlet expects to see pathinfo in the form " +

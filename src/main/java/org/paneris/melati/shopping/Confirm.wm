@@ -17,7 +17,7 @@
 </td></tr></table>
 #if (!$trolley.isEmpty()) #begin
 <p><b>Your shopping basket contains:</b>
-(<a href=View>edit basket</a>)
+(<a href=$trolley.viewURL()>edit basket</a>)
 </p>
 <table width="0%" border="0" cellpadding=0 cellspacing=0><tr><td>
 <table width="0%" border="1" cellpadding=5 cellspacing=0>
@@ -72,7 +72,7 @@
 <table width="0%" border="1" cellpadding=5 cellspacing=0>
   <tr> 
     <td colspan=2>
-<b>Your Details:</b> (<a href=Details>edit details</a>)
+<b>Your Details:</b> (<a href=$trolley.detailsURL()>edit details</a>)
 	</td>
   </tr>
   <tr> 
@@ -91,7 +91,7 @@
     <td colspan=2>&nbsp;</td>
   </tr>
   <tr> 
-    <td colspan=2><b>Delivery Details</b> (<a href=Details>edit details</a>)</td>
+    <td colspan=2><b>Delivery Details</b> (<a href=$trolley.detailsURL()>edit details</a>)</td>
   </tr>
   <tr> 
     <td valign=top>Address</td>
@@ -114,7 +114,7 @@
     <td colspan=2>&nbsp;</td>
   </tr>
   <tr> 
-    <td colspan=2><b>Message</b> (<a href=Details>edit message</a>)</td>
+    <td colspan=2><b>Message</b> (<a href=$trolley.detailsURL()>edit message</a>)</td>
   </tr>
   <tr> 
     <td colspan=2>$trolley.Message</td>

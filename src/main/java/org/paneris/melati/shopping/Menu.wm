@@ -14,26 +14,26 @@
 <p><b>Buy from us in 4 easy steps:</b></p>
 <ol>
   <li>
-#if (!$trolley.isEmpty()) #begin 
-  <a href="View">
+#if ($trolley && !$trolley.isEmpty()) #begin 
+  <a href="$trolley.viewURL()">
 #end
   Load up your basket</a>
  </li>
   <li>
-#if (!$trolley.isEmpty()) #begin 
-  <a href="Details">
+#if ($trolley && !$trolley.isEmpty()) #begin 
+  <a href="$trolley.detailsURL()">
 #end
   Enter your details</a></li>
   <li>
 #if ($melati.Method.equals("Details")) #begin
   <A HREF='javascript:details()'>
 #end #else #begin
-  #if ($trolley.hasDetails()) #begin
-    <a href="Confirm">
+  #if ($trolley && $trolley.hasDetails()) #begin
+    <a href="$trolley.confirmURL()">
   #end 
 #end
     Check your order
-#if ($trolley.hasDetails() || $melati.Method.equals("Details")) #begin
+#if ($trolley && ($trolley.hasDetails() || $melati.Method.equals("Details"))) #begin
   </a>
 #end
 </li>

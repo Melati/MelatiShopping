@@ -493,6 +493,31 @@ public abstract class ShoppingTrolley {
     if (val == null) return null;
     return val.equals("")?null:val;
   }
+    
+  public String baseURL() {
+    return melati.getRequest().getServletPath() + "/" + 
+           melati.getContext().getLogicalDatabase() + "/";
+  }
+  
+  public String viewURL() {
+    return baseURL() + "View/";
+  }
+  
+  public String detailsURL() {
+    return baseURL() + "Details/";
+  }
+  
+  public String confirmURL() {
+    return baseURL() + "Confirm/";
+  }
+  
+  public String abandonURL() {
+    return baseURL() + "Abandon/";
+  }
+  
+  public String updateURL() {
+    return baseURL() + "Update/";
+  }
 
 
 }
