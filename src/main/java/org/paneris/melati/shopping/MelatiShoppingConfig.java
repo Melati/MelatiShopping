@@ -2,7 +2,6 @@ package org.paneris.melati.shopping;
 
 import java.util.Properties;
 import org.melati.util.*;
-import org.melati.playing.neutral.ConfigException;
 import java.io.*;
 
 
