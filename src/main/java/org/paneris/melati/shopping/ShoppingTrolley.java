@@ -24,26 +24,26 @@ import org.melati.util.*;
 
 public abstract class ShoppingTrolley {
 
-  Locale locale;
-  private String address;
-  private String name;
-  private String tel;
-  private String town;
-  private String country;
-  private String postcode;
-  private String message;
-  private String email;
-  private boolean hasDetails = false;
+  private static String TROLLEY = "org.paneris.melati.shopping.DefaultShoppingTrolley";
+  protected Locale locale;
+  protected String address;
+  protected String name;
+  protected String tel;
+  protected String town;
+  protected String country;
+  protected String postcode;
+  protected String message;
+  protected String email;
+  protected boolean hasDetails = false;
   Vector orderedItems = new Vector();
   Hashtable items = new Hashtable();
-  static String TROLLEY = "org.paneris.jammyjoes.model.shoppingtrolley";
   MelatiShoppingConfig config;
-  Melati melati;
+  protected Melati melati;
 
   /**
    * private Constructor to build an empty ShoppingTrolley
   **/
-  private void initialise(Melati melati, MelatiShoppingConfig config) {
+  protected void initialise(Melati melati, MelatiShoppingConfig config) {
     locale = getLocale();
     this.config = config;
     this.melati = melati;
@@ -52,13 +52,23 @@ public abstract class ShoppingTrolley {
   /**
    * public Constructor to build a trolley from some id
   **/
-  public void initialise(Melati melati, MelatiShoppingConfig config, Integer id) {
+  public void initialise(Melati melati, MelatiShoppingConfig config, Integer id) 
+   throws InstantiationPropertyException {
     load(id);
     initialise(melati,config);
     HttpSession session = melati.getSession();
-    session.putValue(TROLLEY,this);
+    session.putValue(name(),this);
     this.melati = melati;
   }
+  
+  /** 
+   * remove any trolley from the session
+   */
+  public void remove(Melati melati) {
+    HttpSession session = melati.getSession();
+    session.removeValue(name());
+  }
+    
 
   /**
    * Returns the single instance, creating one if it can't be found.
@@ -66,11 +76,11 @@ public abstract class ShoppingTrolley {
   public static synchronized ShoppingTrolley getInstance(Melati melati, MelatiShoppingConfig config) 
    throws InstantiationPropertyException {
     HttpSession session = melati.getSession();
-    ShoppingTrolley instance = (ShoppingTrolley) session.getValue(TROLLEY);
+    ShoppingTrolley instance = (ShoppingTrolley) session.getValue(name());
     if (instance == null) {
       instance = newTrolley(config);
       instance.initialise(melati,config);
-      session.putValue(TROLLEY,instance);
+      session.putValue(name(),instance);
     }
     return instance;
   }
@@ -84,13 +94,23 @@ public abstract class ShoppingTrolley {
   */
   public abstract Locale getLocale();
 
+  /* confirm payment of this trolley
+  */
+  public abstract void confirmPayment();
+
   /* load a trolley from something persistent
   */
-  public abstract void load(Integer id);
+  public abstract void load(Integer id) throws InstantiationPropertyException;
 
   /* save a trolley to something persistent
   */
   public abstract void save();
+
+  /* return the name of the trolley (for storing in the session
+  */
+  public static String name() {
+    return TROLLEY;
+  }
 
   /* get the items from the trolley
   */
@@ -133,7 +153,7 @@ public abstract class ShoppingTrolley {
   public ShoppingTrolleyItem newItem(Integer id, String description, Double price) 
    throws InstantiationPropertyException {
     ShoppingTrolleyItem item = ShoppingTrolleyItem.newTrolleyItem(config);
-    item.initialise(melati, locale, id, description, price);
+    item.initialise(this, melati, locale, id, description, price);
     addItem(item);
     return item;
   }

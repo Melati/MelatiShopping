@@ -52,12 +52,15 @@ public class Trolley extends WebmacroMelatiServlet {
     if (shoppingContext.method.equals("Update")) return Update(melati);
     if (shoppingContext.method.equals("Add")) 
       return Add(melati, shoppingContext.stid, shoppingContext.quantity);
+    if (shoppingContext.method.equals("MultipleAdd")) 
+      return MultipleAdd(melati);
     if (shoppingContext.method.equals("Remove")) 
       return Remove(melati, shoppingContext.stid);
     if (shoppingContext.method.equals("Set")) 
       return Set(melati, shoppingContext.stid, shoppingContext.quantity);
     if (shoppingContext.method.equals("Details")) return Details(melati);
     if (shoppingContext.method.equals("Confirm")) return Confirm(melati);
+    if (shoppingContext.method.equals("Paid")) return Paid(melati);
     throw new InvalidUsageException(this, shoppingContext);
   }
 
@@ -117,6 +120,32 @@ public class Trolley extends WebmacroMelatiServlet {
   /* add an item to the trolley, or add to the
      quantity already in the trolley
   */
+  protected String MultipleAdd(Melati melati)
+   throws InstantiationPropertyException {
+    System.err.println("MultipleAdding");
+    for (Enumeration e = melati.getRequest().getParameterNames(); 
+                     e.hasMoreElements();) {
+      String name = (String)e.nextElement();
+      if (name.length() > 8) {
+        String p = name.substring(0,7);
+        if (p.equals("product")) {
+          String id = name.substring(8);
+          String quantityName = "quantity_" + id;
+          double quantity = 1;
+          String quantitySring = melati.getTemplateContext().getForm(quantityName);
+          if (quantitySring != null) {
+            quantity = (new Double(quantitySring)).doubleValue();
+          }
+          Add(melati,new Integer(id),quantity);
+        }
+      }
+    }
+    return shoppingTemplate(melati, "Trolley.wm");
+  }
+
+  /* add an item to the trolley, or add to the
+     quantity already in the trolley
+  */
   protected String Add(Melati melati, Integer id, double quantity)
    throws InstantiationPropertyException {
      System.err.println("Adding");
@@ -169,9 +198,20 @@ public class Trolley extends WebmacroMelatiServlet {
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
     if (getFormNulled(melati,"submit") != null) trolley.setFromForm(melati);
+    trolley.save();
     melati.getTemplateContext().put("trolley",trolley);
     return shoppingTemplate(melati, "Confirm.wm");
   }
+  
+  protected String Paid(Melati melati) 
+   throws InstantiationPropertyException {
+    ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
+    trolley.confirmPayment(melati);
+    // and get rid of it
+    trolley.remove(melati);
+    return shoppingTemplate(melati, "Paid.wm");
+  }
+
 
   protected final String shoppingTemplate(Melati melati, String name)
    throws InstantiationPropertyException {

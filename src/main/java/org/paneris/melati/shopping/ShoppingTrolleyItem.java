@@ -8,11 +8,13 @@ import org.melati.*;
 public abstract class ShoppingTrolleyItem  {
 
   public Melati melati;
-  Integer id;
-  double quantity;
-  double price;
-  Locale locale;
-  String description;
+  protected Integer id;
+  protected double quantity;
+  protected double price;
+  protected Locale locale;
+  protected String description;
+  // the shopping trolley to which this item belongs
+  protected ShoppingTrolley trolley;
 
   public static synchronized ShoppingTrolleyItem newTrolleyItem(MelatiShoppingConfig config)
    throws InstantiationPropertyException {
@@ -23,17 +25,9 @@ public abstract class ShoppingTrolleyItem  {
   /**
    * public Constructor to build a trolley item from some id
   **/
-  public void initialise(Locale l, Integer id) {
-    this.id = id;
-    this.description = id +"";
-    locale = l;
-    load(id);
-  }
-  
-  /**
-   * public Constructor to build a trolley item from some id
-  **/
-  public void initialise(Melati melati, Locale locale, Integer id, String description, Double price) {
+  public void initialise(ShoppingTrolley trolley, Melati melati, Locale locale, 
+                         Integer id, String description, Double price) {
+    this.trolley = trolley;
     this.id = id;
     this.melati = melati;
     load(id);
