@@ -14,17 +14,18 @@ Introduction
 This file describes the Melati (http://www.melati.org) shopping trolley 
 interface developed by Paneris (http://www.paneris.org) and how to install and
 set it up. It assumes you have installed Melati and have created your own POEM 
-database/melati application to which you wish to add the board system.
+database/melati application to which you wish to add the Shopping Trolley.
 
-The shopping trolley system is a java package to be used with Melati. Melati is
-a java servlet based framework for developing HTTP applications using
-POEM. POEM provides an OO wrapper around (currently) an SQL database.
+The shopping trolley system is a java package to be used with Melati. 
+Melati is a java servlet based framework for developing HTTP applications 
+using POEM. POEM provides an OO wrapper around (currently) an SQL database.
 Together Melati and POEM provide a RAD toolkit for web sites.
 
-The Melati Shopping Trolley Interface is designed to provide a flexible adstraction 
-of the basic processes of allowing customers to buy goods on a website. By 
-default, it is not integrated with POEM, and so makes no assumptions about 
-the underlying database implementaion. It does provide the following:
+The Melati Shopping Trolley Interface is designed to provide a
+flexible adstraction of the basic processes of allowing customers 
+to buy goods on a website. By default, it is not integrated with POEM, 
+and so makes no assumptions about the underlying database implementaion. 
+It does provide the following:
 
 o- Ability to add / remove / update items in a shopping trolley (stored in 
     the users session)
@@ -32,16 +33,17 @@ o- Collection of User details
 o- Calculation of VAT and delivery charges
 o- Connection to a 3rd party site for payment
 
-Because exact implementations of shopping trolleys are notoriously varied, this 
-interface seeks to provide as much flexibility as possible.  You can customise 
-your implementation in 2 ways:
+Because exact implementations of shopping trolleys are notoriously
+varied, this interface seeks to provide as much flexibility as
+possible.  
+You can customise your implementation in 2 ways:
 
 1) Writing implementations of 2 abstract classes: 
     - org.paneris.melati.shopping.ShoppingTrolley and 
     - org.paneris.melati.shopping.ShoppingTrolleyItem
     This allows you to decide how to calculate devliery charges etc.
 
-2) Writing tempaltes:
+2) Writing templates:
     - Trolley.wm
     - Details.wm
     - Confirm.wm 
@@ -55,7 +57,6 @@ online Shopping experience:
 2) Enter customer details
 3) Confirm order
 4) Make payment
-
 
 
 
@@ -83,8 +84,8 @@ Unix users type:
 Windows users should use WinZip
 
 
-2) Arrange for the Melati Shopping classes and properties files to be accessible 
-to your servlet runner.
+2) Arrange for the Melati Shopping classes and properties files to be 
+accessible to your servlet runner.
 
 For Apache Jserv, this can be done either in the jserv.properties file, by adding a lines
 
@@ -102,9 +103,9 @@ to the line beginning repositories=
 -------------------------------------------------------------
 
 These should be based on DefaultShoppingTrolley.java and 
-DefaultShoppingTrolleyItem.java.  You will (at least) have to define the following
-abstract methods.  If you don't want to make use of a paticular feature, simply
-"return".
+DefaultShoppingTrolleyItem.java.  You will (at least) have to define 
+the following abstract methods.  
+If you don't want to make use of a paticular feature, simply "return".
 
 ShoppingTrolley:
 
@@ -165,7 +166,7 @@ ShoppingTrolleyItem
 
 
 4) Specify your classes in org.paneris.melati.shopping.ShoppingTrolley.properties
----------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
 For example, you need to specify the 2 classes you created above:
 
@@ -235,7 +236,8 @@ Alternatively, supply the price and description as part of the request:
 ?price=8.99&description=Caterpillar+May
 
 This has obvious security considerations (users can change the price).  
-This mechanism is best used for prototyping or for systems when orders are checked
+This mechanism is best used for prototyping or for systems where 
+orders are checked
 manually before payment is taken (telephone ordering etc).
 
 
