@@ -69,6 +69,9 @@ public class DefaultShoppingTrolley extends ShoppingTrolley {
     return true;
   }
 
+  public void confirmPayment() {
+    return;
+  }
 
 }
 

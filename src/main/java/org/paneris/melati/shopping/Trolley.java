@@ -1,7 +1,5 @@
 package org.paneris.melati.shopping;
 
-import org.paneris.jammyjoes.servlet.*;
-import org.paneris.jammyjoes.model.*;
 import org.melati.*;
 import org.melati.util.*;
 import org.melati.template.webmacro.*;
@@ -206,7 +204,7 @@ public class Trolley extends WebmacroMelatiServlet {
   protected String Paid(Melati melati) 
    throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
-    trolley.confirmPayment(melati);
+    trolley.confirmPayment();
     // and get rid of it
     trolley.remove(melati);
     return shoppingTemplate(melati, "Paid.wm");
