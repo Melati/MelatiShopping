@@ -22,13 +22,13 @@ using POEM. POEM provides an OO wrapper around (currently) an SQL database.
 Together Melati and POEM provide a RAD toolkit for web sites.
 
 The Melati Shopping Trolley Interface is designed to provide a
-flexible adstraction of the basic processes of allowing customers 
+flexible abstraction of the basic processes of allowing customers 
 to buy goods on a website. By default, it is not integrated with POEM, 
-and so makes no assumptions about the underlying database implementaion. 
+and so makes no assumptions about the underlying database implementation. 
 It does provide the following:
 
 o- Ability to add / remove / update items in a shopping trolley (stored in 
-    the users session)
+    the user's session)
 o- Collection of User details
 o- Calculation of VAT and delivery charges
 o- Connection to a 3rd party site for payment
@@ -41,7 +41,7 @@ You can customise your implementation in 2 ways:
 1) Writing implementations of 2 abstract classes: 
     - org.paneris.melati.shopping.ShoppingTrolley and 
     - org.paneris.melati.shopping.ShoppingTrolleyItem
-    This allows you to decide how to calculate devliery charges etc.
+    This allows you to decide how to calculate delivery charges etc.
 
 2) Writing templates:
     - Trolley.wm
@@ -105,7 +105,7 @@ to the line beginning repositories=
 These should be based on DefaultShoppingTrolley.java and 
 DefaultShoppingTrolleyItem.java.  You will (at least) have to define 
 the following abstract methods.  
-If you don't want to make use of a paticular feature, simply "return".
+If you don't want to make use of a particular feature, simply "return".
 
 ShoppingTrolley:
 
