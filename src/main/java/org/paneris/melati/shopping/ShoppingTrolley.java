@@ -57,16 +57,16 @@ import java.util.Locale;
 import org.melati.util.InstantiationPropertyException;
 
  /**
- * <p> A Shopping Trolley stored information in the user's Shopping Trolley.<p>
+ * <p> A Shopping Trolley stores information in the user's Shopping Trolley.</p>
  * <p> It does this by storing itself in the session.</p>
  * <p> For this reason, the constructors are private, and you will be expected to
  * always get the Shopping Trolley using getInstance();</p>
- *
+ * <p>
  * usage example:
- *
+ * </p><p>
  * ShoppingTrolley trolley = ShoppingTrolley.getInstance(Melati melati);
  * context.put("trolley", trolley);
- *
+ * </p>
  **/
 
 public abstract class ShoppingTrolley {
@@ -97,8 +97,8 @@ public abstract class ShoppingTrolley {
   }
 
   /**
-   * public Constructor to build a trolley from some id
-  **/
+   * public Constructor to build a trolley from some id.
+   */
   public void initialise(Melati melati, MelatiShoppingConfig config, Integer id)
    throws InstantiationPropertyException {
     initialise(melati,config);
