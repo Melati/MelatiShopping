@@ -74,12 +74,12 @@ public class MelatiShoppingConfig {
     }
   }
 
-/** 
- * Construct a MelatiShoppingConfig object.  if the propeties file is not found
- * default properties will be used
- *
- * @throws ShoppingConfigException - if there is an error loading the file
- */
+ /** 
+  * Construct a MelatiShoppingConfig object.  
+  * If the propeties file is not found default properties will be used.
+  *
+  * @throws ShoppingConfigException - if there is an error loading the file
+  */
   public MelatiShoppingConfig() throws ShoppingConfigException {
 
     String pref = clazz.getName() + ".";
@@ -100,14 +100,14 @@ public class MelatiShoppingConfig {
 
   }
 
-/** 
- * get a ShoppingTrolley Object as defined in the properties file 
- * if no definition is found, a default DefaultShoppingTrolley will be returned
- *
- * @return - a shopping trolley object as defined in the properties file 
- *
- * @throws InstantiationPropertyException - if we cannot instantiate the object
- */
+ /** 
+  * Get a ShoppingTrolley Object as defined in the properties file. 
+  * If no definition is found, a default DefaultShoppingTrolley will be returned.
+  *
+  * @return - a shopping trolley object as defined in the properties file 
+  *
+  * @throws InstantiationPropertyException - if we cannot instantiate the object
+  */
   public org.paneris.melati.shopping.ShoppingTrolley getShoppingTrolley() 
       throws InstantiationPropertyException {
     return (org.paneris.melati.shopping.ShoppingTrolley)
@@ -118,15 +118,15 @@ public class MelatiShoppingConfig {
   }
   
 
-/** 
- * get a ShoppingTrolleyItem Object as defined in the properties file 
- * if no definition is found, a default DefaultShoppingTrolleyItem will be 
- * returned
- *
- * @return - a shopping trolley item object as defined in the properties file 
- *
- * @throws InstantiationPropertyException - if we cannot instantiate the object
- */
+ /** 
+  * Get a ShoppingTrolleyItem Object as defined in the properties file. 
+  * If no definition is found, a default DefaultShoppingTrolleyItem will be 
+  * returned
+  *
+  * @return - a shopping trolley item object as defined in the properties file 
+  *
+  * @throws InstantiationPropertyException - if we cannot instantiate the object
+  */
   public org.paneris.melati.shopping.ShoppingTrolleyItem getShoppingTrolleyItem()
       throws InstantiationPropertyException {
     return (org.paneris.melati.shopping.ShoppingTrolleyItem)

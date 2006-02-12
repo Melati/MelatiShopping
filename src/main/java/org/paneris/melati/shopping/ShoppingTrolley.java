@@ -50,7 +50,7 @@ import java.util.Vector;
 import java.util.Enumeration;
 import org.melati.Melati;
 import org.melati.MelatiUtil;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import javax.servlet.http.HttpSession;
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -62,7 +62,7 @@ import org.melati.util.InstantiationPropertyException;
  * <p> For this reason, the constructors are private, and you will be expected to
  * always get the Shopping Trolley using getInstance();</p>
  * <p>
- * usage example:
+ * Usage example:
  * </p><p>
  * ShoppingTrolley trolley = ShoppingTrolley.getInstance(Melati melati);
  * context.put("trolley", trolley);
@@ -88,41 +88,42 @@ public abstract class ShoppingTrolley {
   public MelatiShoppingConfig config;
   public Melati melati;
 
-  /**
-   * private Constructor to build an empty ShoppingTrolley
+ /**
+  * Private Constructor to build an empty ShoppingTrolley
   **/
-  protected void initialise(Melati melati, MelatiShoppingConfig config) {
-    this.config = config;
-    this.melati = melati;
+  protected void initialise(Melati melatiIn, MelatiShoppingConfig configIn) {
+    this.config = configIn;
+    this.melati = melatiIn;
   }
 
   /**
-   * public Constructor to build a trolley from some id.
+   * Public Constructor to build a trolley from some id.
    */
-  public void initialise(Melati melati, MelatiShoppingConfig config, Integer id)
+  public void initialise(Melati melatiIn, MelatiShoppingConfig configIn, Integer id)
    throws InstantiationPropertyException {
-    initialise(melati,config);
+    initialise(melatiIn,configIn);
     load(id);
     HttpSession session = melati.getSession();
-    session.putValue(name(),this);
+    session.setAttribute(name(),this);
   }
 
   /**
-   * remove any trolley from the session
+   * Remove any trolley from the session.
    */
-  public void remove(Melati melati) {
-    HttpSession session = melati.getSession();
-    session.removeValue(name());
+  public void remove(Melati melatiIn) {
+    HttpSession session = melatiIn.getSession();
+    session.removeAttribute(name());
   }
 
 
   /**
    * Returns the single instance, creating one if it can't be found.
    */
-  public static synchronized ShoppingTrolley getInstance(Melati melati, MelatiShoppingConfig config)
+  public static synchronized ShoppingTrolley 
+      getInstance(Melati melati, MelatiShoppingConfig config)
    throws InstantiationPropertyException {
     HttpSession session = melati.getSession();
-    ShoppingTrolley instance = (ShoppingTrolley) session.getValue(name());
+    ShoppingTrolley instance = (ShoppingTrolley) session.getAttribute(name());
     if (instance == null) {
       instance = newTrolley(config);
       instance.initialise(melati,config);
@@ -137,87 +138,102 @@ public abstract class ShoppingTrolley {
     return config.getShoppingTrolley();
   }
 
-  /* get the Locale for this trolley
+ /**
+  * Get the Locale for this trolley.
   */
   public abstract Locale getLocale();
 
 
-  /* set the Locale for this trolley
+ /**
+  * Set the Locale for this trolley.
   */
   public void setLocale(Locale locale){
     this.locale = locale;
   }
 
-  /* confirm payment of this trolley
+ /**
+  * Confirm payment of this trolley.
   */
-  public abstract void confirmPayment(Melati melati);
+  public abstract void confirmPayment(Melati melatiIn);
 
-  /* load a trolley from something persistent
+ /**
+  * Load a trolley from something persistent.
   */
   public abstract void load(Integer id) throws InstantiationPropertyException;
 
-  /* save a trolley to something persistent
+ /**
+  * Save a trolley to something persistent.
   */
   public abstract void save();
 
-  /* this is done for each request, so anything special that needs to be done
-   * can be put in here
+ /**
+  * This is done for each request, so anything special that needs to be done
+  * can be put in here
   */
-  public void configureRequest(Melati melati) {
-    this.melati = melati;
+  public void configureRequest(Melati melatiIn) {
+    this.melati = melatiIn;
   }
 
-  /* do something to force users to login
-   * you could perhaps throw an access poem exception in order to let the
-   * servlet generate the login page
+  /**
+   *  Do something to force users to login.
+   * You could perhaps throw an access poem exception in order to let the
+   * servlet generate the login page.
    */
-  public abstract void assertLogin(Melati melati);
+  public abstract void assertLogin(Melati melatiIn);
 
-  /* set the user's detault details into this trolley.  this is useful
-   * if users have already logged in, and we don't want them to reenter their
-   * details
+  /**
+   * Set the user's detault details into this trolley.  
+   * This is useful if users have already logged in, 
+   * and we don't want them to reenter their details.
    */
-  public abstract void setDefaultDetails(Melati melati);
+  public abstract void setDefaultDetails(Melati melatiIn);
 
 
-  /* return the name of the trolley (for storing in the session
+ /**
+  * Return the name of the trolley (for storing in the session).
   */
   public static String name() {
     return TROLLEY;
   }
 
-  /* get the items from the trolley
+ /**
+  * Get the items from the trolley.
   */
   public Enumeration getItems() {
     return orderedItems.elements();
   }
 
-  /* have we got anything in the trolley
+ /**
+  * Have we got anything in the trolley.
   */
   public boolean isEmpty() {
     return items.isEmpty();
   }
 
-  /* have we entered any personal information
+ /**
+  * Have we entered any personal information.
   */
   public boolean hasDetails() {
     return hasDetails;
   }
 
-  /* get an item from the trolley
+ /**
+  * Get an item from the trolley.
   */
   public ShoppingTrolleyItem getItem(Integer id) {
     return (ShoppingTrolleyItem)items.get(id);
   }
 
-  /* remove an item from the trolley
+ /**
+  * Remove an item from the trolley.
   */
   public void removeItem(ShoppingTrolleyItem item) {
     items.remove(item.getId());
     orderedItems.removeElement(item);
   }
 
-  /* add an item to the trolley
+ /**
+  * Add an item to the trolley.
   */
   public void addItem(ShoppingTrolleyItem item) {
     // don't add it if it's already there
@@ -227,6 +243,15 @@ public abstract class ShoppingTrolley {
     items.put(item.getId(),item);
   }
 
+ /**
+  * Create an item and put it in the Trolley.
+  * 
+  * @param id
+  * @param description
+  * @param price
+  * @return a newly created item in the Trolley
+  * @throws InstantiationPropertyException
+  */
   public ShoppingTrolleyItem newItem(Integer id, String description, Double price)
    throws InstantiationPropertyException {
     ShoppingTrolleyItem item = ShoppingTrolleyItem.newTrolleyItem(config);
@@ -235,87 +260,98 @@ public abstract class ShoppingTrolley {
     return item;
   }
 
-  /* calculate the value of the items in the trolley
+ /**
+  * Calculate the value of the items in the trolley.
   */
   public double getValue() {
     double value = 0;
-    for (Enumeration enum = items.elements(); enum.hasMoreElements();) {
-      ShoppingTrolleyItem product = (ShoppingTrolleyItem) enum.nextElement();
+    for (Enumeration en = items.elements(); en.hasMoreElements();) {
+      ShoppingTrolleyItem product = (ShoppingTrolleyItem) en.nextElement();
       value += product.getValue();
     }
     return value;
   }
 
-  /* format the order value for display
-     this value does not include discount or delivery, but does invlude VAT
+ /**
+  * Format the order value for display.
+  * This value does not include discount or delivery, but does invlude VAT.
   */
   public String getValueDisplay() {
     return displayCurrency(getValue());
   }
 
-  /* calculate the total value of this order
+ /**
+  * Calculate the total value of this order.
   */
   public double getTotalValue() {
     return getValue() + getTotalDeliveryValue() + getDiscountValue() + getVATValue();
   }
 
-  /* format the total order value for display
-     this value includes discount, delivery and VAT
+ /**
+  * Format the total order value for display.
+  * This value includes discount, delivery and VAT.
   */
   public String getTotalValueDisplay() {
     return displayCurrency(getTotalValue());
   }
 
-  /* format the total order value in pence, typically ecomerce sites
-     accept the values in pence not pounds
+ /**
+  * Format the total order value in pence, typically ecomerce sites
+  * accept the values in pence not pounds.
   */
-
   public String getTotalValuePence() {
     return (new Double(roundTo2dp(getTotalValue() * 100))).intValue() + "";
   }
 
-  /* provide a mechanism for working out if
-     this order should include a delivery charge
+ /**
+  * Provide a mechanism for working out if
+  * this order should include a delivery charge.
   */
   public abstract boolean hasDelivery();
 
-  /* you need to provide some mechanism for calculating the delivery
-     value for the order (item delivery values are calculated individually
+ /**
+  * You need to provide some mechanism for calculating the delivery
+  * value for the order (item delivery values are calculated individually.
   */
   public abstract double getDeliveryValue();
 
-  /* the delivery charge for the order is the sum of the charges on the items
-     and an overall charge
+ /**
+  * The delivery charge for the order is the sum of the charges on the items
+  * and an overall charge.
   */
   public double getTotalDeliveryValue() {
     double value = 0;
     if (hasDelivery()) {
       value = getDeliveryValue();
-      for (Enumeration enum = items.elements(); enum.hasMoreElements();) {
-        ShoppingTrolleyItem item = (ShoppingTrolleyItem) enum.nextElement();
+      for (Enumeration en = items.elements(); en.hasMoreElements();) {
+        ShoppingTrolleyItem item = (ShoppingTrolleyItem)en.nextElement();
         value += item.getDeliveryValue();
       }
     }
     return value;
   }
 
-  /* format the devliery value for display
+ /**
+  * Format the delivery value for display.
   */
   public String getDeliveryDisplay() {
     return displayCurrency(getTotalDeliveryValue());
   }
 
-  /* provide a mechanism for working out if
-     this order should include a discount
+ /**
+  * Provide a mechanism for working out if
+  * this order should include a discount.
   */
   public abstract boolean hasDiscount();
 
-  /* if you want to apply a discount to this order, do it here
+ /**
+  * If you want to apply a discount to this order, do it here.
   */
   public abstract double getDiscountRate();
 
-  /* work out the value of the discout applied to this order
-     (returns a negative value)
+ /**
+  * Work out the value of the discout applied to this order
+  * (returns a negative value).
   */
   public double getDiscountValue() {
     double value = 0;
@@ -325,7 +361,8 @@ public abstract class ShoppingTrolley {
     return value;
   }
 
-  /* display the discount (if present)
+ /**
+  * Display the discount (if present).
   */
   public String getDiscountRateDisplay() {
     if (hasDiscount()) {
@@ -339,22 +376,25 @@ public abstract class ShoppingTrolley {
     }
   }
 
-  /* format the discount value for display
+ /**
+  * Format the discount value for display.
   */
   public String getDiscountValueDisplay() throws Exception {
     return displayCurrency(getDiscountValue());
   }
 
-  /* provide a mechanism for working out if
-     this order should include VAT (default should be true)
+ /**
+  * Provide a mechanism for working out if
+  * this order should include VAT (default should be true).
   */
   public abstract boolean hasVAT();
 
-  /* calculate the VAT value of the order
-     typically items are priced inclusive of VAT and orders
-     are therefor also inclusive of VAT.  If this order is
-     for someone who should not be charged VAT, we need to subtract VAT
-     from the order value
+ /**
+  * Calculate the VAT value of the order.
+  * Typically items are priced inclusive of VAT and orders
+  * are therefore also inclusive of VAT.  If this order is
+  * for someone who should not be charged VAT, we need to subtract VAT
+  *  from the order value.
   */
   public double getVATValue() {
     if (!hasVAT()) {
@@ -364,14 +404,19 @@ public abstract class ShoppingTrolley {
     }
   }
 
-  /* format the vat value for display
+ /**
+  * Format the vat value for display.
   */
   public String getVATDisplay() {
     return displayCurrency(getVATValue());
   }
 
+ /**
+  * Set values from form fileds. 
+  * @param melati
+  */
   public void setFromForm(Melati melati) {
-    TemplateContext tc = melati.getTemplateContext();
+    ServletTemplateContext tc = melati.getServletTemplateContext();
     setName(MelatiUtil.getFormNulled(tc,"trolley_name"));
     setEmail(MelatiUtil.getFormNulled(tc,"trolley_email"));
     setTel(MelatiUtil.getFormNulled(tc,"trolley_tel"));
@@ -384,112 +429,132 @@ public abstract class ShoppingTrolley {
     hasDetails = true;
   }
 
-  /* set the address
+ /**
+  * Set the address.
   */
   public void setDeliveryAddress(String a) {
     address = a;
   }
-  /* get the address
+ /**
+  * Get the address.
   */
   public String getDeliveryAddress() {
     return address;
   }
 
-  /* set the name
+ /**
+  * Set the name.
   */
   public void setName(String a) {
     name = a;
   }
-  /* get the name
+ /**
+  * Get the name.
   */
   public String getName() {
     return name;
   }
 
-  /* set the email address
+ /**
+  * Set the email address.
   */
   public void setEmail(String a) {
     email = a;
   }
-  /* get the email address
+ /**
+  * Get the email address.
   */
   public String getEmail() {
     return email;
   }
 
-  /* set the postcode
+ /**
+  * Set the postcode.
   */
   public void setPostcode(String a) {
     postcode = a;
   }
-  /* get the postcode
+ /**
+  * Get the postcode.
   */
   public String getPostcode() {
     return postcode;
   }
 
-  /* set the telephone number
+ /**
+  * Set the telephone number.
   */
   public void setTel(String a) {
     tel = a;
   }
-  /* get the telephone number
+ /**
+  * Get the telephone number.
   */
   public String getTel() {
     return tel;
   }
 
-  /* set the town
+ /**
+  * Set the town.
   */
   public void setTown(String a) {
     town = a;
   }
-  /* get the town
+ /**
+  * Get the town.
   */
   public String getTown() {
     return town;
   }
 
-  /* set the county
+ /**
+  * Set the county.
   */
   public void setCounty(String a) {
     county = a;
   }
-  /* get the county
+ /**
+  * Get the county.
   */
   public String getCounty() {
     return county;
   }
 
-  /* set the country
+ /**
+  * Set the country.
   */
   public void setCountry(String a) {
     country = a;
   }
-  /* get the country
+ /**
+  * Get the country.
   */
   public String getCountry() {
     return country;
   }
 
-  /* set the delivery message
+ /**
+  * Set the delivery message.
   */
   public void setMessage(String a) {
     message = a;
   }
-  /* get the delivery message
+ /**
+  * Get the delivery message.
   */
   public String getMessage() {
     return message;
   }
 
-  /* format a number in the locale currency
+ /**
+  * Format a number in the locale currency.
   */
   public String displayCurrency(double value) {
     return new String(NumberFormat.getCurrencyInstance(getLocale()).format(value));
   }
 
-  /* format a number in the locale currency
+ /**
+  * Format a number in the locale currency.
   */
   public String displayCurrency(Double value) {
     return displayCurrency(value.doubleValue());
@@ -497,7 +562,7 @@ public abstract class ShoppingTrolley {
 
   public String baseURL() {
     return melati.getRequest().getServletPath() + "/" +
-           melati.getContext().logicalDatabase + "/";
+           melati.getPoemContext().getLogicalDatabase() + "/";
   }
 
   public String viewURL() {

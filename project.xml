@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <project>
   <pomVersion>3</pomVersion>
-  <id>shopping</id>
-  <name>Shopping</name>
-  <currentVersion>1.1</currentVersion>
+  <id>MelatiShopping</id>
+  <name>Melati Shopping</name>
+  <currentVersion>1.2</currentVersion>
   <organization>
     <name>PanEris</name>
     <url>http://www.paneris.org/</url>
@@ -20,16 +20,13 @@
   -->
 
   <description>
-The PanEris Shopping Trolley developed using 
-<a href="http://www.melati.org/">Melati</a>.
+The PanEris Shopping Trolley developed using Melati.
   </description>
 
   <url>http://shopping.paneris.net/</url>
   <siteAddress>shopping.melati.net</siteAddress>
   <siteDirectory>/inst/shopping/target/docs/</siteDirectory>
   <issueTrackingUrl>
-<!-- http://nagoya.apache.org/scarab/servlet/scarab/ -->
-       
 http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
   </issueTrackingUrl>
   <distributionDirectory>
@@ -86,7 +83,7 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
       </archive>
     </mailingList>
     <mailingList>
-      <name>PanEris Melati board <b>(Closed)</b></name>
+      <name>PanEris Melati board (Closed)</name>
       <subscribe>
 subscribe.melati@messageboards.paneris.org
       </subscribe>
@@ -98,7 +95,7 @@ subscribe.melati@messageboards.paneris.org
       </archive>
     </mailingList>
     <mailingList>
-      <name>PanEris Melati Project board <b>(Closed)</b></name>
+      <name>PanEris Melati Project board (Closed)</name>
       <subscribe>
 subscribe.melati@messageboards.paneris.org
       </subscribe>
@@ -220,13 +217,26 @@ subscribe.melati@messageboards.paneris.org
   <dependencies>
       <dependency>
       <id>melati</id>
-      <version>0.7.0</version>
+      <version>0.7.4-SNAPSHOT</version>
       <url>http://www.melati.org/</url>
     </dependency>
     <dependency>
-      <id>webmacro</id>
+      <id>webmacro-classic</id>
+      <version>2.0b1</version>
+      <url>http://www.webmacro.org/</url>
+      <properties>
+         <war.bundle>false</war.bundle>
+         <scope>runtime</scope>
+      </properties>
+    </dependency>
+    <dependency>
+      <id>concurrent</id>
       <version>1.0</version>
       <url>http://www.webmacro.org/</url>
+      <properties>
+         <war.bundle>false</war.bundle>
+         <scope>runtime</scope>
+      </properties>
     </dependency>
     <dependency>
       <id>servlet</id>
@@ -274,22 +284,8 @@ subscribe.melati@messageboards.paneris.org
     <integrationUnitTest>
     </integrationUnitTest>
     -->
-    <!--
-    <jars>
-     /inst/melati-cvs/build/dist/melati_0.7.0/lib/melati.jar
-    </jars>
-     -->
   </build>
   <reports>
-     |
-     | These should all be completely self contained. You should be able
-     | to generate each of them individually without needing the final
-     | xdoc transformation.
-     |
-     | Each report plugin with it's POM and plugin.jelly logic should
-     | contain everything needed to produced the report.
-     |
-
     <report>maven-changelog-plugin</report>
     <report>maven-developer-activity-plugin</report>
     <report>maven-file-activity-plugin</report>

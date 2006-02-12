@@ -4,9 +4,9 @@ import org.melati.Melati;
 import org.melati.MelatiUtil;
 import org.melati.util.MelatiException;
 import org.melati.util.InstantiationPropertyException;
-import org.melati.template.TemplateContext;
+import org.melati.template.ServletTemplateContext;
 import org.melati.servlet.TemplateServlet;
-import org.melati.servlet.MelatiContext;
+import org.melati.PoemContext;
 import org.melati.servlet.PathInfoException;
 import org.melati.servlet.InvalidUsageException;
 import java.util.Enumeration;
@@ -32,12 +32,11 @@ public class Trolley extends TemplateServlet {
   /**
    * Inititialise the Shopping Trolley Engine.  This will load a file called
    * org.paneris.melati.shopping.ShoppingTrolley.properties in order to 
-   * find the classes that implement this shopping implementation
+   * find the classes that implement this shopping implementation.
    *
    * @param conf - the Servlet's config parameters
    * @see org.paneris.melati.shopping.MelatiShoppingConfig
    **/
-
   public void init(ServletConfig conf ) throws ServletException {
     super.init(conf );
     try {
@@ -48,7 +47,7 @@ public class Trolley extends TemplateServlet {
   }
 
   /**
-   * Main entry point for this servlet
+   * Main entry point for this servlet.
    *
    * @param melati - the melati for this request
    * @param context - the Template Context for this request
@@ -56,9 +55,8 @@ public class Trolley extends TemplateServlet {
    * @return - the name of the template to be returned to the user
    *
    * @throws InvalidUsageException - if this request has an invalid form
-   **/
-
-  protected String doTemplateRequest(Melati melati, TemplateContext context)
+   */
+  protected String doTemplateRequest(Melati melati, ServletTemplateContext context)
       throws Exception {
 
     if (config==null) 
@@ -67,28 +65,28 @@ public class Trolley extends TemplateServlet {
     // by simply appending "?login"
     // to the url
     if (MelatiUtil.getFormNulled(context,"login") != null) assertLogin(melati);
-    ShoppingContext shoppingContext = (ShoppingContext)melati.getContext();
-    if (shoppingContext.method.equals("Load")) 
+    ShoppingContext shoppingContext = (ShoppingContext)melati.getPoemContext();
+    if (shoppingContext.getMethod().equals("Load")) 
       return Load(melati, shoppingContext.stid);
-    if (shoppingContext.method.equals("View")) return View(melati);
-    if (shoppingContext.method.equals("Update")) return Update(melati);
-    if (shoppingContext.method.equals("Add")) 
+    if (shoppingContext.getMethod().equals("View")) return View(melati);
+    if (shoppingContext.getMethod().equals("Update")) return Update(melati);
+    if (shoppingContext.getMethod().equals("Add")) 
       return Add(melati, shoppingContext.stid, shoppingContext.quantity);
-    if (shoppingContext.method.equals("MultipleAdd")) 
+    if (shoppingContext.getMethod().equals("MultipleAdd")) 
       return MultipleAdd(melati);
-    if (shoppingContext.method.equals("Remove")) 
+    if (shoppingContext.getMethod().equals("Remove")) 
       return Remove(melati, shoppingContext.stid);
-    if (shoppingContext.method.equals("Set")) 
+    if (shoppingContext.getMethod().equals("Set")) 
       return Set(melati, shoppingContext.stid, shoppingContext.quantity);
-    if (shoppingContext.method.equals("Details")) return Details(melati);
-    if (shoppingContext.method.equals("Confirm")) return Confirm(melati);
-    if (shoppingContext.method.equals("Paid")) return Paid(melati);
-    if (shoppingContext.method.equals("Abandon")) return Abandon(melati);
+    if (shoppingContext.getMethod().equals("Details")) return Details(melati);
+    if (shoppingContext.getMethod().equals("Confirm")) return Confirm(melati);
+    if (shoppingContext.getMethod().equals("Paid")) return Paid(melati);
+    if (shoppingContext.getMethod().equals("Abandon")) return Abandon(melati);
     throw new InvalidUsageException(this, shoppingContext);
   }
 
   /** 
-   * load the trolley from something persistent
+   * Load the trolley from something persistent.
    *
    * @param melati - the melati for this request
    * @param id - an id that can be used to identify the trolley to be loaded
@@ -97,8 +95,7 @@ public class Trolley extends TemplateServlet {
    *           Shopping Trolley
    *
    * @throws InstantiationPropertyException - if we cannot construct trolley
-   **/
-
+   */
   protected String Load(Melati melati, Integer id)
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.newTrolley(config);
@@ -109,7 +106,7 @@ public class Trolley extends TemplateServlet {
 
 
   /** 
-   * load the trolley from something persistent
+   * Load the trolley from something persistent.
    *
    * @param melati - the melati for this request
    *
@@ -118,7 +115,6 @@ public class Trolley extends TemplateServlet {
    *
    * @throws InstantiationPropertyException - if we cannot construct trolley
    **/
-
   protected String Save(Melati melati)
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -128,7 +124,7 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * view the trolley
+   * View the trolley.
    *
    * @param melati - the melati for this request
    *
@@ -136,7 +132,7 @@ public class Trolley extends TemplateServlet {
    *           Shopping Trolley
    *
    * @throws InstantiationPropertyException - if we cannot construct the trolley
-   **/
+   */
   protected String View(Melati melati)
       throws InstantiationPropertyException {
     melati.getTemplateContext().put("trolley", ShoppingTrolley.getInstance(melati,config));
@@ -144,8 +140,8 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * update the entire trolley, changing quantities
-   * and removing items.  the POSTed form is analysed for fields with names of 
+   * Update the entire trolley, changing quantities
+   * and removing items.  The POSTed form is analysed for fields with names of 
    * the form:
    *
    * trolleyitem_<item id>_quantity - the new quantity of the item (if set)
@@ -169,9 +165,9 @@ public class Trolley extends TemplateServlet {
       String formQuantity = formName + "_quantity";
       String formDeleted = formName + "_deleted";
       String deleted = 
-             MelatiUtil.getFormNulled(melati.getTemplateContext(),formDeleted);
+             MelatiUtil.getFormNulled(melati.getServletTemplateContext(),formDeleted);
       String quantity = 
-             MelatiUtil.getFormNulled(melati.getTemplateContext(),formQuantity);
+             MelatiUtil.getFormNulled(melati.getServletTemplateContext(),formQuantity);
       System.err.println(deleted + " " + quantity);
       if (deleted != null || quantity == null || quantity.equals("0")) {
         trolley.removeItem(item);
@@ -184,7 +180,7 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * add multiple items to the trolley, 
+   * Add multiple items to the trolley, 
    * or add to the quantities already in the 
    * trolley.  
    * The POSTed form is analysed for fields with names of 
@@ -201,8 +197,7 @@ public class Trolley extends TemplateServlet {
    *           Shopping Trolley
    *
    * @throws InstantiationPropertyException - if we cannot construct trolley
-   **/
-
+   */
   protected String MultipleAdd(Melati melati)
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -222,13 +217,13 @@ public class Trolley extends TemplateServlet {
           Double price = null;
           String quantitySring = 
                  MelatiUtil.getFormNulled
-                 (melati.getTemplateContext(), quantityName);
+                 (melati.getServletTemplateContext(), quantityName);
           String priceString = 
                  MelatiUtil.getFormNulled
-                 (melati.getTemplateContext(), priceName);
+                 (melati.getServletTemplateContext(), priceName);
           String description = 
                  MelatiUtil.getFormNulled
-                 (melati.getTemplateContext(), descriptionName);
+                 (melati.getServletTemplateContext(), descriptionName);
           if (quantitySring != null) 
             quantity = (new Double(quantitySring)).doubleValue();
           if (priceString != null) price = new Double(priceString);
@@ -244,8 +239,8 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * add a single item to the trolley, or add to the quantity already in the 
-   * trolley.  the product is specified on the pathinfo which should be of the
+   * Add a single item to the trolley, or add to the quantity already in the 
+   * trolley.  The product is specified on the pathinfo which should be of the
    * form:
    *
    * /<logicaldatabase>/<id>/<quantity>/Add/
@@ -262,7 +257,6 @@ public class Trolley extends TemplateServlet {
    *
    * @throws InstantiationPropertyException - if we cannot construct trolley
    **/
-
   protected String Add(Melati melati, Integer id, double quantity)
       throws InstantiationPropertyException {
      System.err.println("Adding");
@@ -273,10 +267,10 @@ public class Trolley extends TemplateServlet {
     if (item == null) {
       Double price = null;
       String priceString = 
-             MelatiUtil.getFormNulled(melati.getTemplateContext(), "price");
+             MelatiUtil.getFormNulled(melati.getServletTemplateContext(), "price");
       if (priceString != null) price = new Double(priceString);
       item = newItem(trolley,id,price,
-          MelatiUtil.getFormNulled(melati.getTemplateContext(), "description"));
+          MelatiUtil.getFormNulled(melati.getServletTemplateContext(), "description"));
     }    
     item.setQuantity(item.getQuantity() + quantity);
     melati.getTemplateContext().put("trolley",trolley);
@@ -284,7 +278,7 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * remove a single item from the trolley, the product is specified on the 
+   * Remove a single item from the trolley, the product is specified on the 
    * pathinfo which should be of the form:
    *
    * /<logicaldatabase>/<id>/Remove/
@@ -295,8 +289,7 @@ public class Trolley extends TemplateServlet {
    *           Shopping Trolley
    *
    * @throws InstantiationPropertyException - if we cannot construct trolley
-   **/
-
+   */
   protected String Remove(Melati melati, Integer id)
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -307,7 +300,7 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * set the quantity of an item in the trolley, 
+   * Set the quantity of an item in the trolley, 
    * the product and new quantity is
    * specified on the pathinfo which should be of the form:
    *
@@ -320,8 +313,7 @@ public class Trolley extends TemplateServlet {
    *           Shopping Trolley
    *
    * @throws InstantiationPropertyException - if we cannot construct trolley
-   **/
-
+   */
   protected String Set(Melati melati, Integer id, double quantity)
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -333,15 +325,14 @@ public class Trolley extends TemplateServlet {
   }
   
   /** 
-   * return the page where the user enters their details
+   * Return the page where the user enters their details.
    *
    * @param melati - the melati for this request
    *
    * @return - "Details" - the page where users enter their details
    *
    * @throws InstantiationPropertyException - if we cannot construct trolley
-   **/
-
+   */
   protected String Details(Melati melati)
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -351,8 +342,8 @@ public class Trolley extends TemplateServlet {
   }
   
   /** 
-   * update the user's information and return the
-   * confirmation page
+   * Update the user's information and return the
+   * confirmation page.
    *
    * @param melati - the melati for this request
    *
@@ -363,7 +354,7 @@ public class Trolley extends TemplateServlet {
   protected String Confirm(Melati melati)
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
-    if (MelatiUtil.getFormNulled(melati.getTemplateContext(),"submittoken") != null) 
+    if (MelatiUtil.getFormNulled(melati.getServletTemplateContext(),"submittoken") != null) 
       trolley.setFromForm(melati);
     trolley.save();
     melati.getTemplateContext().put("trolley",trolley);
@@ -371,8 +362,8 @@ public class Trolley extends TemplateServlet {
   }
   
   /** 
-   * complete the user's shopping experience, and remove their Shopping Trolley
-   * from the Session
+   * Complete the user's shopping experience, and remove their Shopping Trolley
+   * from the Session.
    *
    * If you need to do something (like send an email) following confirmation 
    * of payment, define the method in <Your>ShoppingTrolley.java:
@@ -393,7 +384,6 @@ public class Trolley extends TemplateServlet {
    *
    * @throws InstantiationPropertyException - if we cannot construct trolley
    */
-
   protected String Paid(Melati melati) 
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
@@ -404,7 +394,7 @@ public class Trolley extends TemplateServlet {
   }
   
   /** 
-   * abandon a trolley 
+   * Abandon a trolley. 
    *
    * @param melati - the melati for this request
    *
@@ -421,7 +411,7 @@ public class Trolley extends TemplateServlet {
   }
   
   /** 
-   * force a user to login
+   * Force a user to login.
    *
    * @param melati - the melati for this request
    */
@@ -433,7 +423,7 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * create the full name of the template to be returned
+   * Create the full name of the template to be returned.
    *
    * @param melati - the melati for this request (not used)
    * @param name - the name of the template
@@ -445,9 +435,8 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * create a new item and add it to the ShoppingTrolley
-   *
-   * if a price is passed
+   * Create a new item and add it to the ShoppingTrolley 
+   * if a non null price is passed in.
    *
    * @param trolley - the trolley to add the item to 
    * @param melati - the melati for this request
@@ -462,8 +451,8 @@ public class Trolley extends TemplateServlet {
   }
 
   /** 
-   * override the building of the MelatiContext in order to glean the 
-   * additional information required for the Shopping Trolley system
+   * Override the building of the PoemContext in order to glean the 
+   * additional information required for the Shopping Trolley system.
    *
    * @param melati - the melati for this request
    *
@@ -471,7 +460,7 @@ public class Trolley extends TemplateServlet {
    *
    * @throws PathInfoException - if we don't understand the PathInfo
    */
-  protected MelatiContext melatiContext(Melati melati)
+  protected PoemContext melatiContext(Melati melati)
       throws PathInfoException {
     ShoppingContext it = new ShoppingContext();
     String[] parts = melati.getPathInfoParts();
@@ -479,8 +468,8 @@ public class Trolley extends TemplateServlet {
       throw new PathInfoException(
           "The servlet expects to see pathinfo in the form " +
           "/db/method/ or /db/method/troid or /db/method/troid/quantity");
-    it.logicalDatabase = parts[0];
-    it.method = parts[1];
+    it.setLogicalDatabase(parts[0]);
+    it.setMethod(parts[1]);
     try {
       if (parts.length > 2 && !parts[2].equals("")) 
         it.stid = new Integer(parts[2]);

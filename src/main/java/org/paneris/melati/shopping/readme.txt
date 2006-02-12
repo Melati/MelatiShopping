@@ -18,8 +18,8 @@ database/melati application to which you wish to add the Shopping Trolley.
 
 The shopping trolley system is a java package to be used with Melati. 
 Melati is a java servlet based framework for developing HTTP applications 
-using POEM. POEM provides an OO wrapper around (currently) an SQL database.
-Together Melati and POEM provide a RAD toolkit for web sites.
+using POEM. POEM provides an OO wrapper around an SQL database.
+Together Melati and POEM provide a RAD toolkit for building web sites.
 
 The Melati Shopping Trolley Interface is designed to provide a
 flexible abstraction of the basic processes of allowing customers 

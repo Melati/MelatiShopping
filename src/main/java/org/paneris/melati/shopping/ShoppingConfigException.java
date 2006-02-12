@@ -49,7 +49,7 @@ import org.melati.util.MelatiException;
 
 /**
  * A ShoppingConfigException is throw if we encounter a problem configuring
- * the Melati Shopping Trolley
+ * the Melati Shopping Trolley.
  *
  */
 
@@ -58,7 +58,7 @@ public class ShoppingConfigException extends MelatiException {
   String error;
   
   /** 
-   * Construct the exception with an error string
+   * Construct the exception with an error string.
    *
    * @param error - a description of the error
    */
@@ -67,7 +67,7 @@ public class ShoppingConfigException extends MelatiException {
   }
 
   /** 
-   * get the error message
+   * get the error message.
    *
    * @return - the error message for this exception
    */
