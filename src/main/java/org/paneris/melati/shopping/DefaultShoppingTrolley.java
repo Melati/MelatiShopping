@@ -142,7 +142,6 @@ public class DefaultShoppingTrolley extends ShoppingTrolley {
   * A call back point for the payment server.
   */
   public void confirmPayment(Melati melatiIn) {
-    return;
   }
 
 }
