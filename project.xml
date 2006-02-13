@@ -6,7 +6,7 @@
   <currentVersion>1.2</currentVersion>
   <organization>
     <name>PanEris</name>
-    <url>http://www.paneris.org/</url>
+    <url>http://www.paneris.net/</url>
     <logo>http://www.paneris.org/images/corporate/pelogo.png</logo>
   </organization>
   <inceptionYear>1997</inceptionYear>
@@ -24,7 +24,7 @@ The PanEris Shopping Trolley developed using Melati.
   </description>
 
   <url>http://shopping.paneris.net/</url>
-  <siteAddress>shopping.melati.net</siteAddress>
+  <siteAddress>shopping.paneris.net</siteAddress>
   <siteDirectory>/inst/shopping/target/docs/</siteDirectory>
   <issueTrackingUrl>
 http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
@@ -35,10 +35,11 @@ http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs
 
   <repository>
     <connection>
-      scm:cvs:pserver:anon@melati.org:/usr/cvsroot:MelatiShopping
+      scm:cvs:pserver:anonymous@paneris.net:/usr/cvsroot:MelatiShopping
     </connection>
-
-<developerConnection>scm:cvs:ext:anon@melati.org:/usr/cvsroot:MelatiShopping</developerConnection>
+   <developerConnection>
+    scm:cvs:pserver:anonymous@paneris.net:/usr/cvsroot:MelatiShopping
+   </developerConnection>
 
     <url>
       http://paneris.org/cgi-bin/cvsweb.cgi/MelatiShopping/
@@ -106,20 +107,9 @@ subscribe.melati@messageboards.paneris.org
        http://www.paneris.org/webmacro/MessageBoard?db=paneris&amp;messageboard=231
       </archive>
     </mailingList>
-
-
   </mailingLists>
 
   <developers>
-
-    <developer>
-      <name>William Chesters</name>
-      <id>williamc</id>
-      <email>williamc@paneris.org</email>
-      <roles>
-        <role>Original author</role>
-      </roles>
-    </developer>
     <developer>
       <name>Tim Joyce</name>
       <id>timj</id>
@@ -139,33 +129,6 @@ subscribe.melati@messageboards.paneris.org
       </roles>
     </developer>
     <developer>
-      <name>Myles Chippendale</name>
-      <id>mylesc</id>
-      <email>mylesc@paneris.org</email>
-      <organization>MJC Solutions</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Colin Rainsforth</name>
-      <id>colinr</id>
-      <email>colinr@paneris.org</email>
-      <organization>PanEris</organization>
-      <roles>
-        <role>Graphics Designer</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Chris Kimpton</name>
-      <id>kimptoc</id>
-      <email>chris@kimptoc.net</email>
-      <organization>Kimptoc</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-    <developer>
       <name>Jim Wright</name>
       <id>jimw</id>
       <email>jimw@paneris.org</email>
@@ -174,43 +137,6 @@ subscribe.melati@messageboards.paneris.org
         <role>Developer</role>
       </roles>
     </developer>
-    <developer>
-      <name>David Warnock</name>
-      <id>davew</id>
-      <email>david@sundayta.com</email>
-      <organization>PanEris</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Karl Zilles</name>
-      <id>karlz</id>
-      <email>karlz@paneris.org</email>
-      <organization>PanEris</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Vasily Pozhidaev</name>
-      <id>vasilyp</id>
-      <email>vasilyp@paneris.org</email>
-      <organization>PanEris</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Peter Kehl</name>
-      <id>peterk</id>
-      <email>peterk@paneris.org</email>
-      <organization>PanEris</organization>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-
   </developers>
 
 
@@ -254,7 +180,6 @@ subscribe.melati@messageboards.paneris.org
     <sourceDirectory>src</sourceDirectory>
 
     <!--unitTestSourceDirectory>src/test/java</unitTestSourceDirectory-->
-    <!--integrationUnitTestSourceDirectory></integrationUnitTestSourceDirectory-->
 
     <!--aspectSourceDirectory/-->
 
@@ -279,26 +204,32 @@ subscribe.melati@messageboards.paneris.org
       </includes>
     </resources>
     -->
-    <!-- Integration unit test cases -->
-    <!--
-    <integrationUnitTest>
-    </integrationUnitTest>
-    -->
   </build>
   <reports>
     <report>maven-changelog-plugin</report>
-    <report>maven-developer-activity-plugin</report>
-    <report>maven-file-activity-plugin</report>
+    <report>maven-changes-plugin</report>
     <report>maven-checkstyle-plugin</report>
+    <report>maven-developer-activity-plugin</report>
+<!--
+    <report>maven-faq-plugin</report>
+-->
+    <report>maven-file-activity-plugin</report>
+<!--
+    <report>maven-jcoverage-plugin</report>
+-->
     <report>maven-jdepend-plugin</report>
     <report>maven-jxr-plugin</report>
     <report>maven-javadoc-plugin</report>
-    <report>maven-tasklist-plugin</report>
 <!--
-    <report>maven-junit-report-plugin</report>
     <report>maven-jellydoc-plugin</report>
-    <report>maven-linkcheck-plugin</report>
 -->
+    <report>maven-junit-report-plugin</report>
+    <report>maven-license-plugin</report>
+    <report>maven-linkcheck-plugin</report>
+    <report>maven-pmd-plugin</report>
+    <report>maven-simian-plugin</report>
+    <report>maven-statcvs-plugin</report>
+    <report>maven-tasklist-plugin</report>
   </reports>
 
 </project>
