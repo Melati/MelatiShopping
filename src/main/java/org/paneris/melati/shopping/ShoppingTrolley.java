@@ -88,7 +88,7 @@ public abstract class ShoppingTrolley {
   Vector orderedItems = new Vector();
   Hashtable items = new Hashtable();
 
-  public final static double VAT_PERCENT_TIMES_TEN = 175.0;
+  public static final double VAT_PERCENT_TIMES_TEN = 175.0;
   public MelatiShoppingConfig config;
   public Melati melati;
 
