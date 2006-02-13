@@ -4,7 +4,7 @@
  *
  * Copyright (C) 2000 Tim Joyce
  *
- * Part of Melati (http://melati.org), a framework for the rapid
+ * Part of Melati (http://melati.org/ ), a framework for the rapid
  * development of clean, maintainable web applications.
  *
  * Melati is free software; Permission is granted to copy, distribute
