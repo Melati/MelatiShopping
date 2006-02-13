@@ -57,10 +57,11 @@ import java.util.Locale;
 import org.melati.util.InstantiationPropertyException;
 
  /**
- * <p> A Shopping Trolley stores information in the user's Shopping Trolley.</p>
+ * <p> A Shopping Trolley stores information in the user's 
+ * Shopping Trolley.</p>
  * <p> It does this by storing itself in the session.</p>
- * <p> For this reason, the constructors are private, and you will be expected to
- * always get the Shopping Trolley using getInstance();</p>
+ * <p> For this reason, the constructors are private, and you will be expected
+ * always to get the Shopping Trolley using getInstance();</p>
  * <p>
  * Usage example:
  * </p><p>
@@ -71,7 +72,8 @@ import org.melati.util.InstantiationPropertyException;
 
 public abstract class ShoppingTrolley {
 
-  private static String TROLLEY = "org.paneris.melati.shopping.DefaultShoppingTrolley";
+  private static String TROLLEY = 
+      "org.paneris.melati.shopping.DefaultShoppingTrolley";
   protected Locale locale;
   protected String address;
   protected String name;
@@ -99,7 +101,8 @@ public abstract class ShoppingTrolley {
   /**
    * Public Constructor to build a trolley from some id.
    */
-  public void initialise(Melati melatiIn, MelatiShoppingConfig configIn, Integer id)
+  public void initialise(Melati melatiIn, 
+                         MelatiShoppingConfig configIn, Integer id)
    throws InstantiationPropertyException {
     initialise(melatiIn,configIn);
     load(id);
@@ -133,8 +136,9 @@ public abstract class ShoppingTrolley {
     return instance;
   }
 
-  public static synchronized ShoppingTrolley newTrolley(MelatiShoppingConfig config)
-   throws InstantiationPropertyException {
+  public static synchronized ShoppingTrolley 
+      newTrolley(MelatiShoppingConfig config)
+      throws InstantiationPropertyException {
     return config.getShoppingTrolley();
   }
 
@@ -252,7 +256,8 @@ public abstract class ShoppingTrolley {
   * @return a newly created item in the Trolley
   * @throws InstantiationPropertyException
   */
-  public ShoppingTrolleyItem newItem(Integer id, String description, Double price)
+  public ShoppingTrolleyItem newItem(Integer id, String description, 
+                                     Double price)
    throws InstantiationPropertyException {
     ShoppingTrolleyItem item = ShoppingTrolleyItem.newTrolleyItem(config);
     item.initialise(this, melati, id, description, price);
@@ -284,7 +289,10 @@ public abstract class ShoppingTrolley {
   * Calculate the total value of this order.
   */
   public double getTotalValue() {
-    return getValue() + getTotalDeliveryValue() + getDiscountValue() + getVATValue();
+    return getValue() + 
+           getTotalDeliveryValue() + 
+           getDiscountValue() + 
+           getVATValue();
   }
 
  /**
@@ -550,7 +558,8 @@ public abstract class ShoppingTrolley {
   * Format a number in the locale currency.
   */
   public String displayCurrency(double value) {
-    return new String(NumberFormat.getCurrencyInstance(getLocale()).format(value));
+    return new String(NumberFormat.getCurrencyInstance(
+                                       getLocale()).format(value));
   }
 
  /**

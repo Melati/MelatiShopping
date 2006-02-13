@@ -16,8 +16,9 @@ public abstract class ShoppingTrolleyItem  {
   protected ShoppingTrolley trolley;
   public Melati melati;
 
-  public static synchronized ShoppingTrolleyItem newTrolleyItem(MelatiShoppingConfig config)
-   throws InstantiationPropertyException {
+  public static synchronized ShoppingTrolleyItem 
+      newTrolleyItem(MelatiShoppingConfig config)
+      throws InstantiationPropertyException {
     return config.getShoppingTrolleyItem();
   }
 

@@ -91,7 +91,7 @@ public class MelatiShoppingConfig {
           PropertiesUtils.fromResource(clazz, pref + "properties");
     }
     catch (FileNotFoundException e) {
-      System.err.println("Could not find properties file: " +e.toString());
+      System.err.println("Could not find properties file: " + e.toString());
       configuration = new Properties();
     }
     catch (IOException e) {
@@ -102,11 +102,12 @@ public class MelatiShoppingConfig {
 
  /** 
   * Get a ShoppingTrolley Object as defined in the properties file. 
-  * If no definition is found, a default DefaultShoppingTrolley will be returned.
+  * If no definition is found, a default DefaultShoppingTrolley 
+  * will be returned.
   *
   * @return - a shopping trolley object as defined in the properties file 
   *
-  * @throws InstantiationPropertyException - if we cannot instantiate the object
+  * @throws InstantiationPropertyException if we cannot instantiate the object
   */
   public org.paneris.melati.shopping.ShoppingTrolley getShoppingTrolley() 
       throws InstantiationPropertyException {
@@ -125,9 +126,10 @@ public class MelatiShoppingConfig {
   *
   * @return - a shopping trolley item object as defined in the properties file 
   *
-  * @throws InstantiationPropertyException - if we cannot instantiate the object
+  * @throws InstantiationPropertyException if we cannot instantiate the object
   */
-  public org.paneris.melati.shopping.ShoppingTrolleyItem getShoppingTrolleyItem()
+  public org.paneris.melati.shopping.ShoppingTrolleyItem 
+      getShoppingTrolleyItem()
       throws InstantiationPropertyException {
     return (org.paneris.melati.shopping.ShoppingTrolleyItem)
                PropertiesUtils.instanceOfNamedClass(

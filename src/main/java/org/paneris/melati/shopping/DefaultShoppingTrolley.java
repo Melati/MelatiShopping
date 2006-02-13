@@ -6,8 +6,8 @@ import java.util.Locale;
 /**
 * <p> A Shopping Trolley stores information in the user's Shopping Trolley.<p>
 * <p> It does this by storing itself in the session.</p>
-* <p> For this reason, the constructors are private, and you will be expected to
-* always get the Shopping Trolley using getInstance();</p>
+* <p> For this reason, the constructors are private, and you will be expected 
+* always to get the Shopping Trolley using getInstance();</p>
 *
 * usage example:
 *
