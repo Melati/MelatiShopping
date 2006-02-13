@@ -87,6 +87,8 @@ public abstract class ShoppingTrolley {
   protected boolean hasDetails = false;
   Vector orderedItems = new Vector();
   Hashtable items = new Hashtable();
+
+  public final static Double VAT_PERCENT_TIMES_TEN = 175.0;
   public MelatiShoppingConfig config;
   public Melati melati;
 
@@ -402,11 +404,12 @@ public abstract class ShoppingTrolley {
   * Typically items are priced inclusive of VAT and orders
   * are therefore also inclusive of VAT.  If this order is
   * for someone who should not be charged VAT, we need to subtract VAT
-  *  from the order value.
+  * from the order value.
   */
   public double getVATValue() {
     if (!hasVAT()) {
-      return roundTo2dp(getValue() * -0.14894);
+      return roundTo2dp((getValue() * 
+                        (-1 * (1.0 - (1000.0/VAT_PERCENT_TIMES_TEN)))));
     } else {
       return 0;
     }
