@@ -26,8 +26,8 @@
  * GNU General Public License and visit http://melati.org to obtain the
  * Melati Software License.
  *
- * Feel free to contact the Developers of Melati (http://melati.org),
- * if you would like to work out a different arrangement than the options
+ * Feel free to contact the Developers of Melati if you would like 
+ * to work out a different arrangement than the options
  * outlined here.  It is our intention to allow Melati to be used by as
  * wide an audience as possible.
  *
