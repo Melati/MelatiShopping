@@ -88,7 +88,7 @@ public abstract class ShoppingTrolley {
   Vector orderedItems = new Vector();
   Hashtable items = new Hashtable();
 
-  public final static Double VAT_PERCENT_TIMES_TEN = 175.0;
+  public final static double VAT_PERCENT_TIMES_TEN = 175.0;
   public MelatiShoppingConfig config;
   public Melati melati;
 
@@ -132,7 +132,7 @@ public abstract class ShoppingTrolley {
     if (instance == null) {
       instance = newTrolley(config);
       instance.initialise(melati,config);
-      session.putValue(name(),instance);
+      session.setAttribute(name(),instance);
     }
     instance.configureRequest(melati);
     return instance;
