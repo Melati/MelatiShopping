@@ -49,7 +49,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Enumeration;
 import org.melati.Melati;
-import org.melati.MelatiUtil;
+import org.melati.servlet.Form;
 import org.melati.template.ServletTemplateContext;
 import javax.servlet.http.HttpSession;
 import java.text.NumberFormat;
@@ -428,15 +428,15 @@ public abstract class ShoppingTrolley {
   */
   public void setFromForm(Melati melati) {
     ServletTemplateContext tc = melati.getServletTemplateContext();
-    setName(MelatiUtil.getFormNulled(tc,"trolley_name"));
-    setEmail(MelatiUtil.getFormNulled(tc,"trolley_email"));
-    setTel(MelatiUtil.getFormNulled(tc,"trolley_tel"));
-    setDeliveryAddress(MelatiUtil.getFormNulled(tc,"trolley_deliveryaddress"));
-    setTown(MelatiUtil.getFormNulled(tc,"trolley_town"));
-    setCounty(MelatiUtil.getFormNulled(tc,"trolley_county"));
-    setCountry(MelatiUtil.getFormNulled(tc,"trolley_country"));
-    setPostcode(MelatiUtil.getFormNulled(tc,"trolley_postcode"));
-    setMessage(MelatiUtil.getFormNulled(tc,"trolley_message"));
+    setName(Form.getFormNulled(tc,"trolley_name"));
+    setEmail(Form.getFormNulled(tc,"trolley_email"));
+    setTel(Form.getFormNulled(tc,"trolley_tel"));
+    setDeliveryAddress(Form.getFormNulled(tc,"trolley_deliveryaddress"));
+    setTown(Form.getFormNulled(tc,"trolley_town"));
+    setCounty(Form.getFormNulled(tc,"trolley_county"));
+    setCountry(Form.getFormNulled(tc,"trolley_country"));
+    setPostcode(Form.getFormNulled(tc,"trolley_postcode"));
+    setMessage(Form.getFormNulled(tc,"trolley_message"));
     hasDetails = true;
   }
 

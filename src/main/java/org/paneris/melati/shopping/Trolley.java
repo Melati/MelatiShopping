@@ -46,7 +46,7 @@
 package org.paneris.melati.shopping;
 
 import org.melati.Melati;
-import org.melati.MelatiUtil;
+import org.melati.servlet.Form;
 import org.melati.util.MelatiException;
 import org.melati.util.InstantiationPropertyException;
 import org.melati.template.ServletTemplateContext;
@@ -110,7 +110,7 @@ public class Trolley extends TemplateServlet {
     // at any point, the user can be forced to login, 
     // by simply appending "?login"
     // to the url
-    if (MelatiUtil.getFormNulled(context,"login") != null) assertLogin(melati);
+    if (Form.getFormNulled(context,"login") != null) assertLogin(melati);
     ShoppingContext shoppingContext = (ShoppingContext)melati.getPoemContext();
     if (shoppingContext.getMethod().equals("Load")) 
       return Load(melati, shoppingContext.stid);
@@ -212,10 +212,10 @@ public class Trolley extends TemplateServlet {
       String formQuantity = formName + "_quantity";
       String formDeleted = formName + "_deleted";
       String deleted = 
-             MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+             Form.getFormNulled(melati.getServletTemplateContext(),
                                       formDeleted);
       String quantity = 
-             MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+             Form.getFormNulled(melati.getServletTemplateContext(),
                                       formQuantity);
       System.err.println(deleted + " " + quantity);
       if (deleted != null || quantity == null || quantity.equals("0")) {
@@ -265,13 +265,13 @@ public class Trolley extends TemplateServlet {
           double quantity = 1;
           Double price = null;
           String quantitySring = 
-                 MelatiUtil.getFormNulled
+                 Form.getFormNulled
                  (melati.getServletTemplateContext(), quantityName);
           String priceString = 
-                 MelatiUtil.getFormNulled
+                 Form.getFormNulled
                  (melati.getServletTemplateContext(), priceName);
           String description = 
-                 MelatiUtil.getFormNulled
+                 Form.getFormNulled
                  (melati.getServletTemplateContext(), descriptionName);
           if (quantitySring != null) 
             quantity = (new Double(quantitySring)).doubleValue();
@@ -316,11 +316,11 @@ public class Trolley extends TemplateServlet {
     if (item == null) {
       Double price = null;
       String priceString = 
-             MelatiUtil.getFormNulled(melati.getServletTemplateContext(), 
+             Form.getFormNulled(melati.getServletTemplateContext(), 
                                       "price");
       if (priceString != null) price = new Double(priceString);
       item = newItem(trolley,id,price,
-          MelatiUtil.getFormNulled(melati.getServletTemplateContext(), 
+          Form.getFormNulled(melati.getServletTemplateContext(), 
                                    "description"));
     }    
     item.setQuantity(item.getQuantity() + quantity);
@@ -405,7 +405,7 @@ public class Trolley extends TemplateServlet {
   protected String Confirm(Melati melati)
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
-    if (MelatiUtil.getFormNulled(melati.getServletTemplateContext(),
+    if (Form.getFormNulled(melati.getServletTemplateContext(),
                                  "submittoken") != null) 
       trolley.setFromForm(melati);
     trolley.save();
