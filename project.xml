@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <project>
   <pomVersion>3</pomVersion>
+  <groupId>org.melati</groupId>
   <id>MelatiShopping</id>
   <name>Melati Shopping</name>
   <currentVersion>1.2</currentVersion>
