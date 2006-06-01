@@ -91,14 +91,14 @@
   </dependencies>
   <distributionManagement>
     <repository>
-      <id>default</id>
+      <id>melati</id>
       <name>Default Repository</name>
-      <url>file:///inst/shopping</url>
+      <url>scp://melati.org/data/www/maven2/</url>
     </repository>
     <site>
       <id>default</id>
       <name>Default Site</name>
-      <url>scp://shopping.paneris.net//inst/shopping/target/docs/</url>
+      <url>scp://shopping.paneris.net//data/www/MelatiShopping</url>
     </site>
   </distributionManagement>
 </project>
