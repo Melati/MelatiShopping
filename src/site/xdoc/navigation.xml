@@ -13,7 +13,8 @@
     <item name="Bibliomania"           href="http://www.bibliomania.com" />
     </links>
     <menu name="Overview">
-      <item name="Download"                href="/download.html"/>
+      <item name="Download"            href="download.html"/>
+      <item name="Maven2"              href="http://shopping.paneris.net/index.html"/>
     </menu>
   </body>
 </project>

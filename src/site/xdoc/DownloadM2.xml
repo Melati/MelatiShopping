@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Maven 1 version -->
+<!-- Maven 2 version -->
 <document>
 
   <properties>
@@ -11,7 +11,7 @@
     <section name="Download Jar">
 
       <p>
-        The latest build can be found <a href="http://paneris.net/maven/MelatiShopping/">here</a>.
+        The latest build can be found <a href="http://paneris.net/maven2/org/paneris/MelatiShopping/">here</a>.
       </p>
       
     </section>
@@ -19,7 +19,7 @@
 
       <p>
         To download the source see the 
-        <a href="cvs-usage.html">Source Repository</a>.
+        <a href="source-repository.html">Source Repository</a>.
       </p>
       
     </section>
