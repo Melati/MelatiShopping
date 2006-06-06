@@ -181,7 +181,7 @@ subscribe.melati@messageboards.paneris.org
       timp@paneris.org
     </nagEmailAddress>
 
-    <sourceDirectory>src</sourceDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
 
     <!--unitTestSourceDirectory>src/test/java</unitTestSourceDirectory-->
 
