@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>MelatiShopping</groupId>
+  <groupId>org.paneris</groupId>
   <artifactId>MelatiShopping</artifactId>
   <name>Melati Shopping</name>
   <version>1.2</version>
-  <description>The PanEris Shopping Trolley developed using Melati.</description>
+  <description>
+    The PanEris Shopping Trolley developed using Melati.
+  </description>
   <url>http://shopping.paneris.net/</url>
   <issueManagement>
     <url>http://sourceforge.net/mailarchive/forum.php?forum=melati-cvs</url>
