@@ -71,6 +71,7 @@ import javax.servlet.ServletException;
  **/
 
 public class Trolley extends TemplateServlet {
+  private static final long serialVersionUID = 1L;
 
   public MelatiShoppingConfig config;
    

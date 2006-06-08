@@ -55,6 +55,8 @@ import org.melati.util.MelatiException;
 
 public class ShoppingConfigException extends MelatiException {
 
+  private static final long serialVersionUID = 1L;
+
   String error;
   
   /** 
