@@ -1,12 +1,6 @@
 <?xml version="1.0"?>
 <!-- Maven 2 version -->
 <document>
-
-  <properties>
-    <title>Download</title>
-    <author email="timp@paneris.org">Tim Pizey</author>
-  </properties>
-
   <body>
     <section name="Download Jar">
 
