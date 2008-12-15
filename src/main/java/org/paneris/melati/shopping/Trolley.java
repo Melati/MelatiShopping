@@ -512,7 +512,7 @@ public class Trolley extends TemplateServlet {
    *
    * @throws PathInfoException - if we don't understand the PathInfo
    */
-  protected PoemContext melatiContext(Melati melati)
+  protected PoemContext poemContext(Melati melati)
       throws PathInfoException {
     ShoppingContext it = new ShoppingContext();
     String[] parts = melati.getPathInfoParts();
