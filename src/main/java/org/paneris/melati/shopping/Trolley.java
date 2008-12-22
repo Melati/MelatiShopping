@@ -483,7 +483,7 @@ public class Trolley extends TemplateServlet {
    *
    * @return - the full path to the template
    */
-  protected final String shoppingTemplate(Melati melati, String name) {
+  protected String shoppingTemplate(Melati melati, String name) {
     return "shopping/" + name;
   }
 
