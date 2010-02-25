@@ -428,15 +428,15 @@ public abstract class ShoppingTrolley {
   */
   public void setFromForm(Melati melati) {
     ServletTemplateContext tc = melati.getServletTemplateContext();
-    setName(Form.getFormNulled(tc,"trolley_name"));
-    setEmail(Form.getFormNulled(tc,"trolley_email"));
-    setTel(Form.getFormNulled(tc,"trolley_tel"));
-    setDeliveryAddress(Form.getFormNulled(tc,"trolley_deliveryaddress"));
-    setTown(Form.getFormNulled(tc,"trolley_town"));
-    setCounty(Form.getFormNulled(tc,"trolley_county"));
-    setCountry(Form.getFormNulled(tc,"trolley_country"));
-    setPostcode(Form.getFormNulled(tc,"trolley_postcode"));
-    setMessage(Form.getFormNulled(tc,"trolley_message"));
+    setName(Form.getFieldNulled(tc,"trolley_name"));
+    setEmail(Form.getFieldNulled(tc,"trolley_email"));
+    setTel(Form.getFieldNulled(tc,"trolley_tel"));
+    setDeliveryAddress(Form.getFieldNulled(tc,"trolley_deliveryaddress"));
+    setTown(Form.getFieldNulled(tc,"trolley_town"));
+    setCounty(Form.getFieldNulled(tc,"trolley_county"));
+    setCountry(Form.getFieldNulled(tc,"trolley_country"));
+    setPostcode(Form.getFieldNulled(tc,"trolley_postcode"));
+    setMessage(Form.getFieldNulled(tc,"trolley_message"));
     hasDetails = true;
   }
 
