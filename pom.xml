@@ -63,8 +63,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <target>1.4</target>
-          <source>1.4</source></configuration>
+          <target>1.6</target>
+          <source>1.6</source></configuration>
       </plugin>
       <plugin>
        <groupId>org.apache.maven.plugins</groupId>
@@ -166,7 +166,6 @@
         <configuration>
          <tags>
           <tag>TODO</tag>
-          <tag>@todo</tag>
           <tag>FIXME</tag>
           <tag>@deprecated</tag>
          </tags>
@@ -182,7 +181,7 @@
     <dependency>
       <groupId>org.melati</groupId>
       <artifactId>melati</artifactId>
-      <version>0.7.8-RC2-SNAPSHOT</version>
+      <version>0.7.8-RC3-SNAPSHOT</version>
     </dependency>
 
     <dependency>
@@ -205,3 +204,4 @@
     </site>
   </distributionManagement>
 </project>
+
