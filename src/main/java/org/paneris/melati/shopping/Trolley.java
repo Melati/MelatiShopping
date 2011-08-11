@@ -207,7 +207,7 @@ public class Trolley extends TemplateServlet {
   protected String Update(Melati melati) 
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
-    for (Enumeration c = trolley.getItems(); c.hasMoreElements();) {
+    for (Enumeration<Object> c = trolley.getItems(); c.hasMoreElements();) {
       ShoppingTrolleyItem item = (ShoppingTrolleyItem)c.nextElement();
       String formName = "trolleyitem_" + item.getId();
       String formQuantity = formName + "_quantity";
@@ -251,7 +251,8 @@ public class Trolley extends TemplateServlet {
   protected String MultipleAdd(Melati melati)
       throws InstantiationPropertyException {
     ShoppingTrolley trolley = ShoppingTrolley.getInstance(melati,config);
-    for (Enumeration e = melati.getRequest().getParameterNames(); 
+    for (@SuppressWarnings("unchecked")
+    Enumeration<String> e = melati.getRequest().getParameterNames(); 
                      e.hasMoreElements();) {
       String name = (String)e.nextElement();
       if (name.length() > 8) {

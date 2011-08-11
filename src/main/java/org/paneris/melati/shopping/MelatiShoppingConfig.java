@@ -64,7 +64,7 @@ public class MelatiShoppingConfig {
   private Properties configuration = null;
   private String ShoppingTrolleyProp = null;
   private String ShoppingTrolleyItemProp = null;
-  private static Class clazz;
+  private static Class<?> clazz;
   static {
     try {
       clazz = Class.forName("org.paneris.melati.shopping.ShoppingTrolley");

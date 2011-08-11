@@ -85,8 +85,8 @@ public abstract class ShoppingTrolley {
   protected String message;
   protected String email;
   protected boolean hasDetails = false;
-  Vector orderedItems = new Vector();
-  Hashtable items = new Hashtable();
+  Vector<Object> orderedItems = new Vector<Object>();
+  Hashtable<Object,Object> items = new Hashtable<Object,Object>();
 
   public static final double VAT_PERCENT_TIMES_TEN = 175.0;
   public MelatiShoppingConfig config;
@@ -205,7 +205,7 @@ public abstract class ShoppingTrolley {
  /**
   * Get the items from the trolley.
   */
-  public Enumeration getItems() {
+  public Enumeration<Object> getItems() {
     return orderedItems.elements();
   }
 
@@ -272,7 +272,7 @@ public abstract class ShoppingTrolley {
   */
   public double getValue() {
     double value = 0;
-    for (Enumeration en = items.elements(); en.hasMoreElements();) {
+    for (Enumeration<Object> en = items.elements(); en.hasMoreElements();) {
       ShoppingTrolleyItem product = (ShoppingTrolleyItem) en.nextElement();
       value += product.getValue();
     }
@@ -333,7 +333,7 @@ public abstract class ShoppingTrolley {
     double value = 0;
     if (hasDelivery()) {
       value = getDeliveryValue();
-      for (Enumeration en = items.elements(); en.hasMoreElements();) {
+      for (Enumeration<Object> en = items.elements(); en.hasMoreElements();) {
         ShoppingTrolleyItem item = (ShoppingTrolleyItem)en.nextElement();
         value += item.getDeliveryValue();
       }
